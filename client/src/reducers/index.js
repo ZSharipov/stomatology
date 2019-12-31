@@ -1,16 +1,10 @@
+import { combineReducers } from 'redux'
+import patients from './patients'
+import doctors from './doctors'
+import authentication from './authentication'
 
-const initialState = {
-    patients: []
-};
-
-const reducer = (state = InitialState, action) => {
-    switch (action.type) {
-        case "PATIENT_LOADED":
-            return {
-                patients: payload
-            }
-        default:
-            return state
-    }
-}
-export default reducer;
+export default combineReducers({
+    patients,
+    authentication,
+    doctors,
+})

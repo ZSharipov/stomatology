@@ -1,11 +1,10 @@
-
-const patientsLoaded = (newPatients) => {
-    return {
-        type: "PATIENTS_LOADED",
-        payload: newPatients
-    }
-};
+import { patientsAdedToCard, fetchPatients } from './patients'
+import { fetchDoctors } from './doctors';
+import { authentication } from './authentication';
 
 export {
-    patientsLoaded
-};
+    patientsAdedToCard,
+    fetchPatients,
+    authentication,
+    fetchDoctors,
+}

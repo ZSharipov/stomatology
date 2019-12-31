@@ -1,9 +1,9 @@
 import {
-    ServereSrviceContexProvider,
-    ServereSrviceContexConsumer
+    ServerSrviceProvider,
+    ServerSrviceConsumer
 } from './server-service-contex';
 
 export {
-    ServereSrviceContexProvider,
-    ServereSrviceContexConsumer
+    ServerSrviceProvider,
+    ServerSrviceConsumer
 };

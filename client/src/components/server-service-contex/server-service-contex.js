@@ -1,10 +1,10 @@
 import React from 'react'
 
 const {
-    Provider: ServereSrviceContexProvider,
-    Consumer: ServereSrviceContexConsumer } = React.createContext();
+    Provider: ServerSrviceProvider,
+    Consumer: ServerSrviceConsumer } = React.createContext();
 
 export {
-    ServereSrviceContexProvider,
-    ServereSrviceContexConsumer
+    ServerSrviceProvider,
+    ServerSrviceConsumer
 };

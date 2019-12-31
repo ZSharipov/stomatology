@@ -1,17 +1,17 @@
 import React from 'react'
-import { ServereSrviceContexConsumer } from './server-service-contex';
+import { ServerSrviceConsumer } from '../server-service-contex';
 
 const withServerService = () => (Wrapped) => {
     return (props) => {
         return (
-            <ServereSrviceContexConsumer>
+            <ServerSrviceConsumer>
                 {
                     (serverService) => {
-                        <Wrapped {...props}
+                      return  <Wrapped {...props}
                         serverService = {serverService}/>
                     }
                 }
-            </ServereSrviceContexConsumer>
+            </ServerSrviceConsumer>
         )
     }
 }
