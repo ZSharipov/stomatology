@@ -29,10 +29,10 @@ const patients = (state = initialState, action) => {
                 loading: false
             }
         case "PATIENT_ADDED_TO_CART":
-            const patient_id = action.payload;
-            const patient = state.patients.find((patient) => patient.id_patient === patient_id);
+            const id = action.payload;
+            const patient = state.patients.find((patient) => patient.id === id);
             const newRec = {
-                id_patient: patient.id_patient,
+                id: patient.id,
                 fio: patient.fio,
                 address: patient.address,
                 tel: patient.tel,

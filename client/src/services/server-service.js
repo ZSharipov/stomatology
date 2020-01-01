@@ -1,6 +1,6 @@
 export default class ServerService {
     doctors = [{
-            id_doctor: 1,
+            id: 1,
             fio: "Баротов З. М.",
             station: "головной",
             tel: "343-5-4-455",
@@ -8,7 +8,7 @@ export default class ServerService {
             isType: "a"
         },
         {
-            id_doctor: 2,
+            id: 2,
             fio: "Иванов И. И.",
             station: "головной",
             tel: "343-5-4-455",
@@ -16,7 +16,7 @@ export default class ServerService {
             isType: "d"
         },
         {
-            id_doctor: 3,
+            id: 3,
             fio: "Козлов И. И.",
             station: "головной",
             tel: "343-5-4-455",
@@ -24,7 +24,7 @@ export default class ServerService {
             isType: "r"
         },
         {
-            id_doctor: 4,
+            id: 4,
             fio: "Popov И. И.",
             station: "головной",
             tel: "343-5-4-455",
@@ -32,7 +32,7 @@ export default class ServerService {
             isType: "d"
         },
         {
-            id_doctor: 5,
+            id: 5,
             fio: "Nemoy И. И.",
             station: "головной",
             tel: "343-5-4-455",
@@ -42,7 +42,7 @@ export default class ServerService {
     ];
 
     patients = [{
-            id_patient: 1,
+            id: 1,
             fio: "Иванов И. И.",
             address: "ул. Терешково",
             tel: "34-75-5-46-75",
@@ -54,7 +54,7 @@ export default class ServerService {
             date_edit: "2019-12-17 21:23:09",
         },
         {
-            id_patient: 2,
+            id: 2,
             fio: "Степан Игорь Николаевич",
             address: "ул. Дружба",
             tel: "92-765-46-78",

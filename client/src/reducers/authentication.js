@@ -1,5 +1,5 @@
 const initialState = {
-    id_doctor: '',
+    id: '',
     fio: '',
     isType: '',
 };
@@ -14,7 +14,7 @@ const authentication = (state = initialState, action) => {
             if (doctor === undefined) {
                 return {
                     ...state,
-                    id_doctor: '',
+                    id: '',
                     fio: '',
                     isType: ''
                 }
@@ -22,7 +22,7 @@ const authentication = (state = initialState, action) => {
 
             return {
                 ...state,
-                id_doctor: doctor.id_doctor,
+                id: doctor.id,
                 fio: doctor.fio,
                 isType: doctor.isType
             }

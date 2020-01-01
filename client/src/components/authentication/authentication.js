@@ -23,9 +23,9 @@ class Authentication extends React.Component {
 
 
     render() {
-        const { doctors, loading, error, authent, id_doctor, fio, isType } = this.props;
+        const { doctors, loading, error, authent, id, fio, isType } = this.props;
 
-        if (id_doctor !== '') {
+        if (id !== '') {
             switch (isType) {
                 case "a":
                     return <Redirect to='/' />
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
         doctors: state.doctors.doctors,
         error: state.doctors.error,
         authent: authentication,
-        id_doctor: state.authentication.id_doctor,
+        id: state.authentication.id,
         fio: state.authentication.fio,
         isType: state.authentication.isType,
     }
