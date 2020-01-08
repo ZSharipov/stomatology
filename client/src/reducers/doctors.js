@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const doctors = (state = initialState, action) => {
-
     switch (action.type) {
         case "FETCH_DOCTORS_REQUEST":
             return {
@@ -27,7 +26,7 @@ const doctors = (state = initialState, action) => {
                 error: action.payload,
                 loading: false
             }
-     
+
         default:
             return state
     }

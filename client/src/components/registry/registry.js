@@ -3,8 +3,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 import './registry.css'
-import ErrorIndicator from '../error-indicator'
-import Spinner from '../spinner';
 import Patients from '../patients/patients';
 import ReferringTo from '../referring-to'
 
@@ -13,13 +11,15 @@ import ReferringTo from '../referring-to'
 class Registry extends React.Component {
 
     render() {
-        const { id, fio, isType, doctors } = this.props;
+        const { doctors } = this.props;
+        const defaultHiddenColumnNames = ["hbs", "hcv", "hiv", "date_created", "date_edit"]
 
         return (
             <div>
-                <Patients isAdmin={false} />
-
-                <ReferringTo doctors={doctors} patient="Ifhbgjd" />
+                <Patients                
+                    isAdmin={false}
+                    defaultHiddenColumnNames={defaultHiddenColumnNames} />
+                <ReferringTo doctors={doctors} />
 
 
             </div>

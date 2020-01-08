@@ -7,7 +7,6 @@ const authentication = (data, text) => {
 
 };
 
-
 export {
     authentication,
 }

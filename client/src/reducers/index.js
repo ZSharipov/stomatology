@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import patients from './patients'
+import registry from './registry'
 import doctors from './doctors'
 import authentication from './authentication'
+import patients from './patients'
 
 export default combineReducers({
-    patients,
+    registry,
     authentication,
     doctors,
+    patients,
 })

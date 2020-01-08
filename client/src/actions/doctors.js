@@ -1,3 +1,4 @@
+import { getDoctors } from '../services/server-service'
 
 const doctorsRequested = () => {
     return {
@@ -30,10 +31,11 @@ const doctorsError = (error) => {
 
 
 
-const fetchDoctors = (serverService) => () => (dispatch) => {  //with thunk
+const fetchDoctors = () => (dispatch) => { //with thunk
     dispatch(doctorsRequested());
-    serverService.getDoctors()
-        .then((data) => dispatch(doctorsLoaded(data)))
+    getDoctors()
+        .then(res => res.json())
+        .then((res) => dispatch(doctorsLoaded(res)))
         .catch((err) => dispatch(doctorsError(err)));
 }
 export {

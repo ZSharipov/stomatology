@@ -1,11 +1,12 @@
 import HomePage from './home-page';
-import PatientsPage from './patients-page';
 import AuthenticationPage from './authentication-page';
-import RegistryPage from './registryPage'
+import RegistryPage from './registry-page'
+import TestPage from './test-page'
+
 
 export {
     HomePage,
-    PatientsPage,
     AuthenticationPage,
     RegistryPage,
+    TestPage,
 };

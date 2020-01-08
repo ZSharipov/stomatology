@@ -1,46 +1,45 @@
-// const patientsRequested = () => {
-//     return {
-//         type: "FETCH_PATIENTS_REQUEST"
-//     }
+import { getPatients } from '../services/server-service'
 
-// };
+const patientsRequested = () => {
+    return {
+        type: "FETCH_PATIENTS_REQUEST"
+    }
 
-// const patientsLoaded = (newPatients) => {
-//     return {
-//         type: "FETCH_PATIENTS_SUCCESS",
-//         payload: newPatients
-//     }
-// };
+};
 
-// const patientsError = (error) => {
-//     return {
-//         type: "FETCH_PATIENTS_FAILURE",
-//         payload: error
-//     }
-// };
+const patientsLoaded = (newPatients) => {
+    return {
+        type: "FETCH_PATIENTS_SUCCESS",
+        payload: newPatients
+    }
+};
 
-// export const patientsAdedToCard=(id)=>{
-//     return {
-//         type: "PATIENT_ADDED_TO_CART",
-//         payload: id
-//     }
-// }
-
-// // const fetchPatients =(serverService, dispatch)=> ()=>{
-// //     dispatch(patientsRequested());
-// //     serverService.getPatients()
-// //         .then((data) => dispatch(patientsLoaded(data)))
-// //         .catch((err)=>dispatch(patientsError(err)));
-// // }
+const patientsError = (error) => {
+    return {
+        type: "FETCH_PATIENTS_FAILURE",
+        payload: error
+    }
+};
 
 
-
-// const fetchPatients =(serverService)=>() => (dispatch)=>{  //with thunk
+// const fetchPatients =(serverService, dispatch)=> ()=>{
 //     dispatch(patientsRequested());
 //     serverService.getPatients()
 //         .then((data) => dispatch(patientsLoaded(data)))
 //         .catch((err)=>dispatch(patientsError(err)));
 // }
-// export {
-//   fetchPatients,
-// }
+
+
+
+const fetchPatients = () => (dispatch) => { //with thunk
+    dispatch(patientsRequested());
+    getPatients()
+        .then(res => res.json())
+        .then((res) => {
+            dispatch(patientsLoaded(res))
+        })
+        .catch((err) => dispatch(patientsError(err)));
+}
+export {
+    fetchPatients,
+}

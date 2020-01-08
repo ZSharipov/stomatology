@@ -1,5 +1,5 @@
 import React from 'react';
-import {  HomePage, PatientsPage, AuthenticationPage,RegistryPage } from '../pages';
+import {  HomePage,  AuthenticationPage,RegistryPage,TestPage } from '../pages';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import './app.css';
 
@@ -17,9 +17,10 @@ const App = () => {
                     component={AuthenticationPage}/>
                 <Route path="/registry"
                     component={RegistryPage}/>
+                <Route path="/test"
+                    component={TestPage}/>
                 
-                <Route path="/patients"
-                    component={PatientsPage} />
+               
                   <Redirect to="/"/>  
             </Switch>
         </main>

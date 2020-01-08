@@ -2,12 +2,9 @@ import React from 'react'
 import './authentication.css'
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
 
-import { withServerService } from '../hoc';
 import { authentication, fetchDoctors } from '../../actions';
-import { compose } from '../../utils'
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator'
 import { Redirect } from 'react-router-dom';
@@ -23,12 +20,14 @@ class Authentication extends React.Component {
 
 
     render() {
-        const { doctors, loading, error, authent, id, fio, isType } = this.props;
+        const { doctors, loading, error, authent, isType } = this.props;
 
-        if (id !== '') {
+        if (isType !== '') {
             switch (isType) {
                 case "a":
                     return <Redirect to='/' />
+                case "t":
+                    return <Redirect to='/test' />
                 case "d":
                     return <Redirect to='/' />
                 case "r":
@@ -83,22 +82,15 @@ const mapStateToProps = (state) => {
         loading: state.doctors.loading,
         doctors: state.doctors.doctors,
         error: state.doctors.error,
-        authent: authentication,
-        id: state.authentication.id,
-        fio: state.authentication.fio,
         isType: state.authentication.isType,
+        authent: authentication,
     }
 
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
-    const { serverService } = ownProps;
-    return bindActionCreators({
-        fetchDoctors: fetchDoctors(serverService),
-        authent: authentication
-    }, dispatch);
-}
+const mapDispatchToProps = {
+    fetchDoctors: fetchDoctors,
+    authent: authentication,
+};
 
-export default compose(
-    withServerService(),
-    connect(mapStateToProps, mapDispatchToProps)
-)(Authentication);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);
