@@ -15,6 +15,16 @@ const postJournal = (data) =>
         },
         body: JSON.stringify(data)
     });
+const postPatients = (data) =>
+    fetch(`${url}patients`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
 
 const putPatients = (data) =>
     fetch(`${url}patients`, {
@@ -27,4 +37,4 @@ const putPatients = (data) =>
     });
 
 
-export { getDoctors, getPatients, postJournal, putPatients }
+export { getDoctors, getPatients, postJournal, putPatients, postPatients }

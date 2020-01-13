@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { postJournal } from '../../services/server-service'
 
@@ -7,7 +7,7 @@ import './referring-to.css'
 
 const ReferringTo = ({ doctors, patientReferrId, patientReferrFio }) => {
 
-
+const [docs]=useState(doctors.filter((doc)=>doc.isType==='d'))
 
     let selectId = 0;
     const onSelectChange = (event) => {
@@ -22,6 +22,7 @@ const ReferringTo = ({ doctors, patientReferrId, patientReferrFio }) => {
             .then(res => res.json())
             .then((res) => alert(res.status))
             .catch((err) => {
+                console.error(err)
                 alert(`ошибка при отправке`);
                 return;
             }
@@ -32,6 +33,12 @@ const ReferringTo = ({ doctors, patientReferrId, patientReferrFio }) => {
         document.getElementById("select").value = 0;
         selectId = 0;
 
+    }
+    const onCancelButtonClick=() =>{
+        document.getElementById("rootDiv").style.visibility = 'hidden'
+
+        document.getElementById("select").value = 0;
+        selectId = 0;        
     }
 
     useEffect(() => {
@@ -63,7 +70,7 @@ const ReferringTo = ({ doctors, patientReferrId, patientReferrFio }) => {
                     className="custom-select">
                     <option value={0}>врач . . .</option>
                     {
-                        doctors.map((doctor) => {
+                        docs.map((doctor) => {
                             return (
                                 <option key={doctor.id} value={doctor.id}>{doctor.fio}</option>
                             )
@@ -73,6 +80,9 @@ const ReferringTo = ({ doctors, patientReferrId, patientReferrFio }) => {
             </div>
             <div className="child">
                 <button onClick={onButtonClick} className="btn btn-primary">сохранить</button>
+            </div>
+            <div className="child">
+                <button onClick={onCancelButtonClick} className="btn btn-primary">отмена</button>
             </div>
         </div>
     )

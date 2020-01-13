@@ -10,7 +10,6 @@ import {
     IntegratedPaging,
     SortingState,
     IntegratedSorting,
-    DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
     Grid,
@@ -21,17 +20,15 @@ import {
     TableEditRow,
     TableEditColumn,
     PagingPanel,
-    DragDropProvider,
     TableColumnVisibility,
 
 } from '@devexpress/dx-react-grid-bootstrap4';
 
 
 //my imports
-import { patientReferr } from '../../actions/registry'
 import { connect } from 'react-redux';
-import { fetchPatients } from '../../actions'
-import { putPatients } from '../../services/server-service'
+import { fetchPatients, setTestData, patientReferr } from '../../actions'
+import { putPatients, postPatients } from '../../services/server-service'
 
 
 
@@ -41,7 +38,7 @@ const tableMessages = {
     noData: 'Нет данных',
 };
 const editColumnMessages = {
-    addCommand: "Новая строка",
+    addCommand: "Добавить",
     editCommand: "Изменить",
     deleteCommand: "Удалить",
     commitCommand: "Сохранить",
@@ -58,56 +55,40 @@ const pagingPanelMessages = {
 };
 
 const Patients = ({
+    isType,
     isControl = true,
     colWidth = 250,
-    isAdmin,
     defaultHiddenColumnNames,
     patientRef,
     patients,
-    fetchPatients }) => {
+    fetchPatients,
+    setTestData,
+}) => {
 
 
 
-    if (!isAdmin) {
+    if (isType === 'r') {
         editColumnMessages.deleteCommand = "Направить"
+    }
+    if (isType === 't') {
+        editColumnMessages.deleteCommand = "анализы"
     }
     const [patientId, setPatientId] = useState('');
     const [patientFio, setPatientFio] = useState('');
+
+    const [patientHbs, setPatientHbs] = useState('');
+    const [patientHcv, setPatientHcv] = useState('');
+    const [patientHiv, setPatientHiv] = useState('');
     useEffect(() => {
         patientRef(patientId, patientFio)
-    })
-
-    // const [defaultColumnWidths] = useState([
-    //     { columnName: '1d', width: 20 },
-    //     { columnName: 'fio', width: 180 },
-    //     { columnName: 'birth_day', width: 180 },
-    //     { columnName: 'address', width: 180 },
-    //     { columnName: 'tel', width: 240 },
-    //     { columnName: 'hbs', width: 0 }, 
-    //     { columnName: 'hcv', width: 0 }, 
-    //     { columnName: 'hiv', width: 'hiv' }, 
-    //     { columnName: 'date_created', width: 0 }, 
-    //     { columnName: 'date_edit', width: 0 }
-    // ]);
-
-
-
-    // const [columns] = useState([
-    //     { name: 'id', title: 'id' }, 
-    //     { name: 'fio', title: 'fio' }, 
-    //     { name: 'birth_day', title: 'birth_day' }, 
-    //     { name: 'address', title: 'address' }, 
-    //     { name: 'tel', title: 'tel' }, 
-    //     { name: 'hbs', title: 'hbs' }, 
-    //     { name: 'hcv', title: 'hcv' }, 
-    //     { name: 'hiv', title: 'hiv' }, 
-    //     { name: 'date_created', title: 'date_created' }, 
-    //     { name: 'date_edit', title: 'date_edit' }
-    // ]);
+    }, [patientId, patientFio])
+    useEffect(() => {
+        setTestData(patientHbs, patientHcv, patientHiv, patientId);
+    }, [patientHbs, patientHcv, patientHiv, patientId])
 
 
     const [defaultColumnWidths] = useState([
-        { columnName: 'fio', width: 180 },
+        { columnName: 'fio', width: 350 },
         { columnName: 'birth_day', width: 180 },
         { columnName: 'address', width: 180 },
         { columnName: 'tel', width: 240 },
@@ -164,6 +145,19 @@ const Patients = ({
                     ...row,
                 })),
             ];
+
+            console.log(added[0].fio, added[0].birth_day, added[0].address, added[0].tel);
+            postPatients({ fio: added[0].fio, birth_day: added[0].birth_day, address: added[0].address, tel: added[0].tel })
+                .then(res => res.json())
+                .then((res) => {
+                    // fetchPatients();
+                    alert(res.status)
+                })
+                .catch((err) => {
+                    console.error(err)
+                    alert(`ошибка при отправке`);
+                    return;
+                })
         }
         if (changed) {
             let editRow;
@@ -178,11 +172,16 @@ const Patients = ({
 
             });
             if (editRow) {
-                // const data = { fio: editRow.fio, birth_day: editRow.birth_day, address: editRow.address, tel: editRow.tel, hbs: editRow.hbs, hcv: editRow.hcv, hiv: editRow.hiv, id: editRow.id };
-                putPatients(editRow)
+                const data = {
+                    query: 'UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?',
+                    params: [editRow.fio, '2020/01/01', editRow.address, editRow.tel, editRow.hbs, editRow.hcv, editRow.hiv, editRow.id]
+                };
+                putPatients(data)
                     .then(res => res.json())
                     .then((res) => alert(res.status))
                     .catch((err) => {
+                        fetchPatients();
+                        console.error(err);
                         alert(`ошибка при обновление`);
                         return;
                     })
@@ -190,15 +189,24 @@ const Patients = ({
             changedRows = newArray;
         }
         if (deleted) {
-            if (isAdmin) {
+            if (isType === 'a') {
                 const deletedSet = new Set(deleted);
                 changedRows = rows.filter(row => !deletedSet.has(row.id));
 
             }
-            else {
+            else if (isType === 'r') {
                 const patient = rows[deleted - 1];
                 setPatientId(patient.id);
                 setPatientFio(patient.fio)
+
+                return
+            }
+            else if (isType === 't') {
+                const patient = rows[deleted - 1];
+                setPatientId(patient.id);
+                setPatientHbs(patient.hbs);
+                setPatientHcv(patient.hcv);
+                setPatientHiv(patient.hiv);
 
                 return
             }
@@ -208,69 +216,34 @@ const Patients = ({
     };
 
 
-    //#region for bollTypeColumn
-    const [booleanColumns] = useState(['ert']);
-    const BooleanFormatter = ({ value, row }) => (
-        <span className="badge badge-secondary">
-            {value ? '+' : '-'}
-        </span>
-    );
-
-
-    const BooleanEditor = ({ value, onValueChange }) => (
-        <select
-            className="form-control"
-            value={value}
-            onChange={e => onValueChange(e.target.value === 'true')}
-        >
-            <option value={false}>
-                0
-      </option>
-            <option value>
-                1
-      </option>
-        </select>
-    );
-
-    const BooleanTypeProvider = props => (
-        <DataTypeProvider
-            formatterComponent={BooleanFormatter}
-            editorComponent={BooleanEditor}
-            {...props}
-        />
-    );
-
-
-    //#endregion
-
     //#region for RedBackgraund
-    const HighlightedCell = ({ value, style, ...restProps }) => (
-        <Table.Cell
-            {...restProps}
-            style={{
-                backgroundColor: value > 0 ? 'red' : undefined,
-                ...style,
-            }}>
-            <span
-                style={{
-                    color: value < 1 ? 'white' : undefined,
-                }}>
-                {value}
-            </span>
-        </Table.Cell>
-    );
+    // const HighlightedCell = ({ value, style, ...restProps }) => (
+    //     <Table.Cell
+    //         {...restProps}
+    //         style={{
+    //             backgroundColor: value > 0 ? 'red' : undefined,
+    //             ...style,
+    //         }}>
+    //         <span
+    //             style={{
+    //                 color: value < 1 ? 'white' : undefined,
+    //             }}>
+    //             {value}
+    //         </span>
+    //     </Table.Cell>
+    // );
 
-    const Cell = (props) => {
-        const { column } = props;
-        if (column.name === 'hbs' || column.name === 'hcv' || column.name === 'hiv') {
-            return <HighlightedCell {...props} />;
-        }
-        return <Table.Cell {...props} />;
-    };
+    // const Cell = (props) => {
+    //     const { column } = props;
+    //     if (column.name === 'hbs' || column.name === 'hcv' || column.name === 'hiv') {
+    //         return <HighlightedCell {...props} />;
+    //     }
+    //     return <Table.Cell {...props} />;
+    // };
     //#endregion
 
     return (
-        <div className="cart">
+        <div >
             <Grid
                 rows={rows}
                 columns={columns}
@@ -280,7 +253,6 @@ const Patients = ({
                     sorting={sorting}
                     onSortingChange={setSorting}
                 />
-                {/* <DragDropProvider /> */}
                 <FilteringState defaultFilters={[]} />
                 <EditingState
                     onCommitChanges={commitChanges}
@@ -294,10 +266,9 @@ const Patients = ({
                 <IntegratedPaging />
                 <Table
                     messages={tableMessages}
-                    cellComponent={Cell}
                 />
 
-                <BooleanTypeProvider for={booleanColumns} />
+
 
                 <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
                 <TableFilterRow messages={filterRowMessages} />
@@ -309,8 +280,8 @@ const Patients = ({
                 <TableEditRow />
                 <TableEditColumn
                     showAddCommand={isControl}
-                    showEditCommand
-                    showDeleteCommand={isControl}
+                    showEditCommand={isControl}
+                    showDeleteCommand
                     width={colWidth}
                     messages={editColumnMessages}
                 />
@@ -329,11 +300,13 @@ const Patients = ({
 const mapStateToProps = (state) => {
     return {
         patients: state.patients.patients,
+        isType: state.authentication.isType,
     }
 }
 
 
 const mapDispatchToProps = {
+    setTestData: setTestData,
     patientRef: patientReferr,
     fetchPatients: fetchPatients,
 }

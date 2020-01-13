@@ -10,7 +10,7 @@ const patientsRequested = () => {
 const patientsLoaded = (newPatients) => {
     return {
         type: "FETCH_PATIENTS_SUCCESS",
-        payload: newPatients
+        payload: newPatients,
     }
 };
 

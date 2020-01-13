@@ -13,7 +13,7 @@ const store = createStore(reducer, persistedState, middleware);
 
 store.subscribe(() => {
     saveState(store.getState());
-  });
+});
 
 export default store;
 

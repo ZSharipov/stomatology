@@ -85,7 +85,6 @@ const mapStateToProps = (state) => {
         isType: state.authentication.isType,
         authent: authentication,
     }
-
 };
 const mapDispatchToProps = {
     fetchDoctors: fetchDoctors,

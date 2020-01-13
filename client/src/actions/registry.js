@@ -7,14 +7,14 @@ export const patientReferr = (id, fio) => {
 }
 
 
-export const getPatiens = (data, text) => {
-    return {
-        type: "AUTHENTICATION_REQUEST",
-        data: data,
-        text: text
-    }
+// export const getPatiens = (data, text) => {
+//     return {
+//         type: "AUTHENTICATION_REQUEST",
+//         data: data,
+//         text: text
+//     }
 
-};
+// };
 
 
 // const patientsRequested = () => {

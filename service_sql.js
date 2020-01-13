@@ -7,14 +7,14 @@ const cors = require('cors');
 app.use(bodyParser.json());
 app.use(cors());
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Javac#14',
     database: 'stomatology'
 });
 
-db.connect();
+// db.connect();
 
 // db.on('error', function() { mySql() });
 
@@ -22,6 +22,7 @@ db.connect();
 app.get('/doctors', (req, res) => {
     db.query('SELECT * FROM doctors', (err, result) => {
         if (err) {
+            console.error(err);
             res.send("возникла ошибка выборки");
             return
         } else {
@@ -32,7 +33,8 @@ app.get('/doctors', (req, res) => {
 app.get('/patients', (req, res) => {
     db.query('SELECT `patients`.`id`,`fio`,DATE_FORMAT(`birth_day`, "%d-%m-%Y") AS `birth_day`,`address`,`tel`,`hbs`,`hcv`,`hiv`,`date_created`,`date_edit` FROM patients', (err, result) => {
         if (err) {
-            console.error("возникла ошибка выборки");
+            console.error(err);
+            res.send("возникла ошибка выборки");
             return
         } else {
             res.send(result);
@@ -43,6 +45,19 @@ app.get('/patients', (req, res) => {
 app.post('/journal', function(req, res) {
     db.query(`INSERT INTO journal set ?`, req.body, (err) => {
         if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Data successfully inserted!',
+        });
+    });
+});
+app.post('/patients', function(req, res) {
+    db.query(`INSERT INTO patients set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
             res.send("возникла ошибка при вставке");
             return
         }
@@ -53,21 +68,20 @@ app.post('/journal', function(req, res) {
 });
 
 app.put('/patients', function(req, res) {
-    db.query('UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?', [req.body.fio, "2020/1/1", req.body.address, req.body.tel, req.body.hbs, req.body.hcv, req.body.hiv, req.body.id],
-        (err, results, fields) => {
-            if (err) {
-                res.send("возникла ошибка при обновление");
-                return
-            }
+    // db.query('UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?', 
+    // [req.body.fio, "2020/1/1", req.body.address, req.body.tel, req.body.hbs, req.body.hcv, req.body.hiv, req.body.id],
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
 
-            res.send({
-                status: 'Data successfully updated!',
-            });
+        res.send({
+            status: 'Data successfully updated!',
         });
+    });
 });
-
-
-
 
 
 app.listen(3210, () => {
