@@ -7,7 +7,7 @@ import { fetchPatients, setTestData } from '../../actions'
 
 import './test-edit.css'
 
-const TestEdit = ({ hbs, hcv, hiv, id, fetchPatients, setTestData }) => {
+const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
 
 
 
@@ -46,7 +46,7 @@ const TestEdit = ({ hbs, hcv, hiv, id, fetchPatients, setTestData }) => {
                 fetchPatients();
                 // setId(u);
                 document.getElementById("rootDiv").style.visibility = 'hidden'
-                setTestData(0, 0, 0, '')
+                setTestData(0, 0, 0, '', '')
                 alert(res.status)
 
             })
@@ -67,39 +67,71 @@ const TestEdit = ({ hbs, hcv, hiv, id, fetchPatients, setTestData }) => {
             document.getElementById("rootDiv").style.visibility = 'visible'
     }, [id])
 
-    return (
-        <div
-            style={{ visibility: "hidden" }}
-            id="rootDiv" className="parent">
+    return ( <
+        div style = {
+            { visibility: "hidden" } }
+        id = "rootDiv"
+        className = "parent" >
+        <
+        div className = "child" >
+        <
+        li > { fio } < /li> <
+        /div>
 
-            <div className="child">
-                <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" checked={hbsT} onChange={onHbsChange}
-                        className="custom-control-input" id="input1" required />
-                    <label className="custom-control-label" htmlFor="input1">hbs</label>
-                </div>
-            </div>
-            <div className="child">
-                <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" checked={hcvT} onChange={onHcvChange}
-                        className="custom-control-input" id="input2" required />
-                    <label className="custom-control-label" htmlFor="input2">hcv</label>
-                </div>
-            </div>
-            <div className="child">
-                <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" checked={hivT} onChange={onHivChange}
-                        className="custom-control-input" id="input3" required />
-                    <label className="custom-control-label" htmlFor="input3">hiv</label>
-                </div>
-            </div>
+        <
+        div className = "child" >
+        <
+        div className = "custom-control custom-checkbox mb-3" >
+        <
+        input type = "checkbox"
+        checked = { hbsT }
+        onChange = { onHbsChange }
+        className = "custom-control-input"
+        id = "input1"
+        required / >
+        <
+        label className = "custom-control-label"
+        htmlFor = "input1" > hbs < /label> <
+        /div> <
+        /div> <
+        div className = "child" >
+        <
+        div className = "custom-control custom-checkbox mb-3" >
+        <
+        input type = "checkbox"
+        checked = { hcvT }
+        onChange = { onHcvChange }
+        className = "custom-control-input"
+        id = "input2"
+        required / >
+        <
+        label className = "custom-control-label"
+        htmlFor = "input2" > hcv < /label> <
+        /div> <
+        /div> <
+        div className = "child" >
+        <
+        div className = "custom-control custom-checkbox mb-3" >
+        <
+        input type = "checkbox"
+        checked = { hivT }
+        onChange = { onHivChange }
+        className = "custom-control-input"
+        id = "input3"
+        required / >
+        <
+        label className = "custom-control-label"
+        htmlFor = "input3" > hiv < /label> <
+        /div> <
+        /div>
 
-            <div className="child">
-                <button
-                    onClick={onButtonClick}
-                    className="btn btn-primary">сохранить</button>
-            </div>
-        </div>
+        <
+        div className = "child" >
+        <
+        button onClick = { onButtonClick }
+        className = "btn btn-primary" > сохранить < /button> <
+        /div> <
+        /div>
     )
 }
 
@@ -110,6 +142,7 @@ const mapStateToProps = (state) => {
         hcv: state.test.hcv,
         hiv: state.test.hiv,
         id: state.test.patientId,
+        fio: state.test.patientFio,
     }
 }
 

@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import registry from './registry'
 import doctors from './doctors'
+import journal from './journal'
 import authentication from './authentication'
 import patients from './patients'
 import test from './test'
+import manipulation from './manipulation'
 
 export default combineReducers({
     registry,
@@ -11,4 +13,6 @@ export default combineReducers({
     doctors,
     patients,
     test,
+    journal,
+    manipulation,
 })

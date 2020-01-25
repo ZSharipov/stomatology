@@ -25,11 +25,11 @@ class Authentication extends React.Component {
         if (isType !== '') {
             switch (isType) {
                 case "a":
-                    return <Redirect to='/' />
+                    return <Redirect to='/admin' />
                 case "t":
                     return <Redirect to='/test' />
                 case "d":
-                    return <Redirect to='/' />
+                    return <Redirect to='/operation' />
                 case "r":
                     return <Redirect to='/registry' />
                 default:
@@ -59,6 +59,7 @@ class Authentication extends React.Component {
 
                         <div className="input-group mb-3">
                             <input
+                                autoFocus
                                 onKeyUp={enterPress}
                                 onChange={onInputChange}
                                 type="password"

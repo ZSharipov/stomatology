@@ -28,7 +28,7 @@ import {
 //my imports
 import { connect } from 'react-redux';
 import { fetchPatients, setTestData, patientReferr } from '../../actions'
-import { putPatients, postPatients } from '../../services/server-service'
+import { putPatients, postPatients, delPatients } from '../../services/server-service'
 
 
 
@@ -83,16 +83,15 @@ const Patients = ({
         patientRef(patientId, patientFio)
     }, [patientId, patientFio])
     useEffect(() => {
-        setTestData(patientHbs, patientHcv, patientHiv, patientId);
+        setTestData(patientHbs, patientHcv, patientHiv, patientId, patientFio);
     }, [patientHbs, patientHcv, patientHiv, patientId])
 
 
     const [defaultColumnWidths] = useState([
-        { columnName: 'fio', width: 350 },
+        { columnName: 'fio', width: 300 },
         { columnName: 'birth_day', width: 180 },
         { columnName: 'address', width: 180 },
         { columnName: 'tel', width: 240 },
-        { columnName: 'hbs', width: 100 },
         { columnName: 'hbs', width: 100 },
         { columnName: 'hcv', width: 100 },
         { columnName: 'hiv', width: 100 },
@@ -126,8 +125,13 @@ const Patients = ({
     }, [patients])
 
 
-
-
+    const revertData = (str) => {
+        const reg = /,|\.|-/g;
+        str = str.replace(reg, '/');
+        let arr = str.split('/');
+        arr = arr.reverse();
+        return arr.join('/');
+    }
 
 
     // eslint-disable-next-line no-alert
@@ -146,8 +150,7 @@ const Patients = ({
                 })),
             ];
 
-            console.log(added[0].fio, added[0].birth_day, added[0].address, added[0].tel);
-            postPatients({ fio: added[0].fio, birth_day: added[0].birth_day, address: added[0].address, tel: added[0].tel })
+            postPatients({ fio: added[0].fio, birth_day: revertData(added[0].birth_day), address: added[0].address, tel: added[0].tel })
                 .then(res => res.json())
                 .then((res) => {
                     // fetchPatients();
@@ -174,7 +177,7 @@ const Patients = ({
             if (editRow) {
                 const data = {
                     query: 'UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?',
-                    params: [editRow.fio, '2020/01/01', editRow.address, editRow.tel, editRow.hbs, editRow.hcv, editRow.hiv, editRow.id]
+                    params: [editRow.fio, revertData(editRow.birth_day), editRow.address, editRow.tel, editRow.hbs, editRow.hcv, editRow.hiv, editRow.id]
                 };
                 putPatients(data)
                     .then(res => res.json())
@@ -190,19 +193,37 @@ const Patients = ({
         }
         if (deleted) {
             if (isType === 'a') {
+
                 const deletedSet = new Set(deleted);
                 changedRows = rows.filter(row => !deletedSet.has(row.id));
 
+                const patient = rows.find((row) => {
+                    return row.id === deleted[0];
+                })
+                delPatients([patient.id])
+                    .then(res => res.json())
+                    .then((res) => alert(res.status))
+                    .catch((err) => {
+                        fetchPatients();
+                        console.error(err);
+                        alert(`ошибка при удаление`);
+                        return;
+                    })
+
             }
             else if (isType === 'r') {
-                const patient = rows[deleted - 1];
+                const patient = rows.find((row) => {
+                    return row.id === deleted[0];
+                })
                 setPatientId(patient.id);
                 setPatientFio(patient.fio)
-
                 return
             }
             else if (isType === 't') {
-                const patient = rows[deleted - 1];
+                const patient = rows.find((row) => {
+                    return row.id === deleted[0];
+                })
+                setPatientFio(patient.fio);
                 setPatientId(patient.id);
                 setPatientHbs(patient.hbs);
                 setPatientHcv(patient.hcv);
@@ -289,7 +310,7 @@ const Patients = ({
 
 
                 <PagingPanel
-                    pageSizes={[10, 50, 100, 500]}
+                    pageSizes={[5, 20, 100, 500]}
                     messages={pagingPanelMessages}
                 />
             </Grid>

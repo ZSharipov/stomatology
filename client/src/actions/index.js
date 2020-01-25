@@ -1,8 +1,10 @@
 import { patientReferr } from './registry'
 import { fetchDoctors } from './doctors';
+import { fetchJournal, fetchAllJournal } from './journal';
 import { authentication } from './authentication';
 import { fetchPatients } from './patients';
 import { setTestData } from './test';
+import { openPatient } from './manipulation';
 
 export {
     authentication,
@@ -10,5 +12,7 @@ export {
     patientReferr,
     fetchPatients,
     setTestData,
-
+    fetchJournal,
+    fetchAllJournal,
+    openPatient,
 }

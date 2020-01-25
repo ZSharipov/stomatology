@@ -3,6 +3,7 @@ const initialState = {
     hcv: 0,
     hiv: 0,
     patientId: '',
+    patientFio: '',
 };
 
 const test = (state = initialState, action) => {
@@ -14,8 +15,8 @@ const test = (state = initialState, action) => {
                 hcv: action.hcv,
                 hiv: action.hiv,
                 patientId: action.patientId,
+                patientFio: action.patientFio,
             }
-
 
         default:
             return state

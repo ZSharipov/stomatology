@@ -6,6 +6,12 @@ const getDoctors = _ =>
 const getPatients = _ =>
     fetch(`${url}patients`)
 
+const getJournal = (data) =>
+    fetch(`${url}journal/${data}`);
+
+const getAllJournal = () =>
+    fetch(`${url}journal`);
+
 const postJournal = (data) =>
     fetch(`${url}journal`, {
         method: 'POST',
@@ -35,6 +41,67 @@ const putPatients = (data) =>
         },
         body: JSON.stringify(data)
     });
+const postDoctors = (data) =>
+    fetch(`${url}doctors`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 
 
-export { getDoctors, getPatients, postJournal, putPatients, postPatients }
+const putDoctors = (data) =>
+    fetch(`${url}doctors`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+const delDoctors = (data) =>
+    fetch(`${url}doctors`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+const delPatients = (data) =>
+    fetch(`${url}patients`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+const delJournal = (data) =>
+    fetch(`${url}journal`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+
+export {
+    getDoctors,
+    getPatients,
+    postJournal,
+    putPatients,
+    postPatients,
+    putDoctors,
+    postDoctors,
+    delDoctors,
+    delPatients,
+    getJournal,
+    getAllJournal,
+    delJournal,
+}

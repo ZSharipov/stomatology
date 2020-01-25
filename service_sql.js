@@ -4,6 +4,15 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+
+
+//#region for img loader
+
+
+//#endregion
+
+
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -42,6 +51,60 @@ app.get('/patients', (req, res) => {
     });
 });
 
+app.get('/journal/:id', function(req, res) {
+    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
+    if(p.hbs = 0,'-','+') as hbs,
+    if( p.hcv = 0,'-','+') as hcv,
+    if(p.hiv = 0,'-','+') as hiv,
+    if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous,
+    CASE
+        WHEN j.state = 0 
+            THEN '(1) В очереди'
+        WHEN j.state = 1 
+            THEN '(2) Рассматривается'
+        WHEN j.state = 2 
+            THEN '(3) Выполнено'
+        WHEN j.state = 3 
+            THEN '(4) Отменено'    
+    END AS state
+FROM journal j 
+LEFT JOIN doctors d on j.id_doctor=d.id
+LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=?`, [req.params.id], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        }
+        res.send(result);
+    });
+});
+app.get('/journal', function(req, res) {
+    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
+        if(p.hbs = 0,'-','+') as hbs,
+        if( p.hcv = 0,'-','+') as hcv,
+        if(p.hiv = 0,'-','+') as hiv,
+        if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous,
+        CASE
+            WHEN j.state = 0 
+                THEN '(1) В очереди'
+            WHEN j.state = 1 
+                THEN '(2) Рассматривается'
+            WHEN j.state = 2 
+                THEN '(3) Выполнено'
+            WHEN j.state = 3 
+                THEN '(4) Отменено'    
+        END AS state
+    FROM journal j 
+    LEFT JOIN doctors d on j.id_doctor=d.id
+    LEFT JOIN patients  p on j.id_patient = p.id `, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        }
+        res.send(result);
+    });
+});
 app.post('/journal', function(req, res) {
     db.query(`INSERT INTO journal set ?`, req.body, (err) => {
         if (err) {
@@ -70,6 +133,69 @@ app.post('/patients', function(req, res) {
 app.put('/patients', function(req, res) {
     // db.query('UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?', 
     // [req.body.fio, "2020/1/1", req.body.address, req.body.tel, req.body.hbs, req.body.hcv, req.body.hiv, req.body.id],
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Data successfully updated!',
+        });
+    });
+});
+
+app.post('/doctors', function(req, res) {
+    db.query(`INSERT INTO doctors set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Data successfully inserted!',
+        });
+    });
+});
+app.delete('/doctors', function(req, res) {
+    db.query('DELETE FROM doctors  WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Data successfully deleted!',
+        });
+    });
+});
+app.delete('/patients', function(req, res) {
+    db.query('DELETE FROM patients WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Data successfully deleted!',
+        });
+    });
+});
+app.delete('/journal', function(req, res) {
+    db.query('DELETE FROM journal WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Data successfully deleted!',
+        });
+    });
+});
+
+app.put('/doctors', function(req, res) {
     db.query(req.body.query, req.body.params, (err, results, fields) => {
         if (err) {
             console.error(err);

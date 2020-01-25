@@ -8,7 +8,7 @@ const PatientHeader = () => {
         <header className="patients-header">
             <h1>Наша бла бла программка</h1>
             <Link to="/authentication">
-                <button type="button" className="btn btn-secondary">вход</button>
+                <button type="button" className="btn btn-primary">вход</button>
             </Link>           
         </header>
     )
