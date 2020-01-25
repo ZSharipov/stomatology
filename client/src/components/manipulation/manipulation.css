@@ -1,0 +1,30 @@
+.pat-info-div {
+    display: flex;
+    margin: 15px, 0;
+}
+
+.div-pair {
+    display: flex;
+    margin: 15px, 0;
+}
+
+.div-table-diagnoses {
+    max-width: 450px;
+    font-size: small;
+}
+
+.div-table-diagnoses tr {
+    margin: 0;
+}
+
+.pat-value-div {
+    margin-left: 50px;
+}
+
+.address-div {
+    max-width: 300px;
+}
+
+.pat-label-div {
+    min-width: 120px;
+}
