@@ -3,18 +3,17 @@
     margin: 15px, 0;
 }
 
+.div-for-params {
+    display: flex;
+}
+
+.div-block {
+    padding: 2px;
+}
+
 .div-pair {
     display: flex;
     margin: 15px, 0;
-}
-
-.div-table-diagnoses {
-    max-width: 450px;
-    font-size: small;
-}
-
-.div-table-diagnoses tr {
-    margin: 0;
 }
 
 .pat-value-div {

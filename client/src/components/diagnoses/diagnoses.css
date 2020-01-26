@@ -1,0 +1,32 @@
+.div-for-rows table {
+    font-size: .8rem;
+    width: 250;
+}
+
+.div-for-rows {
+    width: 250px;
+    border: 1px solid #ccc;
+    position: relative;
+    overflow-y: auto;
+    height: 140px;
+}
+
+.div-for-rows .table th {
+    padding: .20rem !important;
+    border-right: 1px solid #ccc;
+}
+
+.div-for-rows td {
+    padding: .20rem !important;
+    border-right: 1px solid #ccc;
+}
+
+.div-for-rows th.p-0 {
+    width: 0;
+}
+
+.div-for-rows input.form-control {
+    padding: 0;
+    height: 1.4rem;
+    font-size: 1rem;
+}

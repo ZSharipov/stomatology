@@ -5,6 +5,8 @@ import Diagnoses from '../diagnoses';
 
 import Slider from './slider';
 import InputFile from './input-file';
+import RootTeeth from './root-teeth';
+import MilkTeeth from './milk-teeth';
 
 
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
@@ -31,9 +33,7 @@ const Manipulation = ({ obj, history }) => {
     // const [state, setState] = useState(obj.state);
 
 
-    function sbtForm(e) {
-        e.preventDefault();
-    }
+
 
     const onBtnClick = () => {
         history.goBack();
@@ -71,14 +71,23 @@ const Manipulation = ({ obj, history }) => {
             </div>
             <div className="div-img-loader">
                 <div>
-                   <InputFile/>
+                    <InputFile />
                 </div>
             </div>
 
 
-            <div className="div-table-diagnoses">
-                <Diagnoses />
+            <div className='div-for-params'>
+                <div className="div-block div-table-diagnoses">
+                    <Diagnoses />
+                </div>
+                <div className="div-block div-root-teeth">
+                    <RootTeeth />
+                </div>
+                <div className="div-block div-milk-teeth">
+                    <MilkTeeth />
+                </div>
             </div>
+            
 
             <div>
                 <button onClick={onBtnClick}>back</button>

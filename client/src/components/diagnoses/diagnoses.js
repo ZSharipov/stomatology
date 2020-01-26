@@ -14,15 +14,13 @@ import {
     // TableHeaderRow,
     TableFilterRow,
     TableEditRow,
-    TableEditColumn,
+    TableColumnResizing,
 
 } from '@devexpress/dx-react-grid-bootstrap4';
 
 
 //my imports
-import { connect } from 'react-redux';
-import { fetchDoctors } from '../../actions'
-import { putDoctors, postDoctors, delDoctors } from '../../services/server-service'
+import './diagnoses.css'
 
 
 
@@ -40,25 +38,29 @@ const editColumnMessages = {
 };
 
 const filterRowMessages = {
-    filterPlaceholder: 'Поиск...',
+    filterPlaceholder: '...',
 };
 
 
 const Diagnoses = () => {
 
 
-    const doctors = [
+    
+
+    const diagnoses = [
         { id: 1, code: 'К00.1', text: 'Сверхкомплектные зубы' },
         { id: 2, code: 'К00.3', text: 'Крапчатые зубы' },
         { id: 3, code: 'К00.4', text: 'Нарушения формирования зубов' },
         { id: 4, code: 'К00.7', text: 'Синдром прорезывания зубов' },
         { id: 5, code: 'К00.8', text: 'Другие нарушения развития зубов' },
-        { id: 6, code: 'К00.9', text: 'Нарушение развития зубов не уточненное' }
+        { id: 6, code: 'К00.9', text: 'Нарушение развития зубов не уточненное' },
+        { id: 7, code: 'К00.10', text: 'Нарушение развития зубов не уточненное' },
+        { id: 8, code: 'К00.11', text: 'Нарушение развития зубов не уточненное' },
     ]
 
     const [defaultColumnWidths] = useState([
-        { columnName: 'code', width: 90 },
-        { columnName: 'text', width: 250 }
+        { columnName: 'code', width:  48},
+        { columnName: 'text', width: 198 }
     ]);
 
 
@@ -68,41 +70,36 @@ const Diagnoses = () => {
 
     ]);
 
-    const [rows, setRows] = useState(doctors);
+    const [rows, setRows] = useState(diagnoses);
     const [sorting, setSorting] = useState([]);
 
     // useEffect(() => {
-    //     setRows(doctors)
-    // }, [doctors])
+    //     setRows(diagnoses)
+    // }, [diagnoses])
 
 
 
 
-    // eslint-disable-next-line no-alert
-    const commitChanges = (args) => {
-        const { deleted } = args;
-        if (deleted) {
-            const doc = rows.find((row) => {
-                return row.id === deleted[0];
-            })
-            console.log(doc);
-        };
-    }
+   
 
     const TableRow = ({ row, ...restProps }) => (
         <Table.Row
-          {...restProps}
-          // eslint-disable-next-line no-alert
-          onDoubleClick={() => alert(JSON.stringify(row))}
+            {...restProps}
+            // eslint-disable-next-line no-alert
+            onDoubleClick={() => alert(JSON.stringify(row))}
 
-        
-         
+
+
         />
-      );
+    );
+
+    const [tableColumnExtensions] = useState([
+        { columnName: 'text', wordWrapEnabled: true },
+    ]);
 
 
     return (
-        
+
         <div className="div-for-rows" >
             <Grid
                 rows={rows}
@@ -114,25 +111,19 @@ const Diagnoses = () => {
                     onSortingChange={setSorting}
                 />
                 <FilteringState defaultFilters={[]} />
-                <EditingState
-                    onCommitChanges={commitChanges}
-                />
+               
                 <IntegratedFiltering />
 
                 <Table
-                rowComponent={TableRow}
+                    columnExtensions={tableColumnExtensions}
+                    rowComponent={TableRow}
                     messages={tableMessages}
                 />
-
+                <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
                 <TableFilterRow messages={filterRowMessages} />
 
 
-                <TableEditRow />
-                <TableEditColumn
-                    showDeleteCommand
-                    width={70}
-                    messages={editColumnMessages}
-                />
+     
 
 
 
@@ -144,7 +135,7 @@ const Diagnoses = () => {
 
 
 // const mapDispatchToProps = {
-//     fetchDoctors: fetchDoctors,
+//     fetchDiagnoses: fetchDiagnoses,
 // }
 
 
