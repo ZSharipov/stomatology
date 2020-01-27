@@ -90,6 +90,13 @@ const delJournal = (data) =>
         body: JSON.stringify(data)
     });
 
+const addImg = ({ body, id, myFile }) =>
+    fetch(`http://localhost:3211/file/${id}/${myFile}`, {
+        method: 'POST',
+        body: body
+
+    });
+
 
 export {
     getDoctors,
@@ -104,4 +111,5 @@ export {
     getJournal,
     getAllJournal,
     delJournal,
+    addImg,
 }

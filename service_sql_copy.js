@@ -6,24 +6,32 @@ var path = require('path');
 const cors = require('cors');
 app.use(cors());
 
-var storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        mkdirp('./uploads', function(err) {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                callback(null, './uploads');
-            }
-        })
-    },
-    filename: function(req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
 
-app.post('/file', function(req, res) {
+
+
+const getStorage = (dirName, myFileName) => {
+    var storage = multer.diskStorage({
+        destination: function(req, file, callback) {
+            mkdirp(`./images/${dirName}`, function(err) {
+                if (err) {
+                    console.log(err.stack)
+                } else {
+                    callback(null, `./images/${dirName}`);
+                }
+            })
+        },
+        filename: function(req, file, callback) {
+            callback(null, myFileName);
+        }
+    });
+
+    return storage;
+
+}
+
+app.post('/file/:id/:myFile', function(req, res) {
     var upload = multer({
-        storage: storage,
+        storage: getStorage(req.params.id, req.params.myFile),
 
         fileFilter: function(req, file, callback) {
             var ext = path.extname(file.originalname);
@@ -35,9 +43,9 @@ app.post('/file', function(req, res) {
     }).single('userFile');
     upload(req, res, function(err) {
         if (err) {
-            return res.end("Error uploading file.");
+            res.end("Error uploading file.");
         }
-        res.end("File is uploaded");
+        res.end('file uploaded');
     });
 });
 

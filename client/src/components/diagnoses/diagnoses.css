@@ -1,6 +1,6 @@
 .div-for-rows table {
     font-size: .8rem;
-    width: 250;
+    width: 245px;
 }
 
 .div-for-rows {
@@ -8,11 +8,11 @@
     border: 1px solid #ccc;
     position: relative;
     overflow-y: auto;
-    height: 140px;
+    height: 136px;
 }
 
 .div-for-rows .table th {
-    padding: .20rem !important;
+    padding: .3rem !important;
     border-right: 1px solid #ccc;
 }
 

@@ -60,7 +60,7 @@ const Diagnoses = () => {
 
     const [defaultColumnWidths] = useState([
         { columnName: 'code', width:  48},
-        { columnName: 'text', width: 198 }
+        { columnName: 'text', width: 197 }
     ]);
 
 

@@ -14,7 +14,7 @@ import './manipulation.css';
 
 
 const Manipulation = ({ obj, history }) => {
-    // const [id, setId] = useState(obj.id);
+    const [id, setId] = useState(obj.id);
     // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
     // const [doc_fio, setDoc_fio] = useState(obj.doc_fio);
     // const [id_patient, setId_patient] = useState(obj.id_patient);
@@ -71,7 +71,7 @@ const Manipulation = ({ obj, history }) => {
             </div>
             <div className="div-img-loader">
                 <div>
-                    <InputFile />
+                    <InputFile id={id}/>
                 </div>
             </div>
 
@@ -93,11 +93,6 @@ const Manipulation = ({ obj, history }) => {
                 <button onClick={onBtnClick}>back</button>
             </div>
         </div>
-
-
-
-
-
     )
 };
 
