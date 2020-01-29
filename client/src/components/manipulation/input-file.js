@@ -1,24 +1,35 @@
 import React, { Component } from 'react'
 import './input-file.css'
 import path from 'path'
-import { addImg } from '../../services/server-service'
+import { addImg, postImage } from '../../services/server-service'
+import { connect } from 'react-redux'
+import { fetchImages } from '../../actions'
 
 
-export default class InputFile extends Component {   
-    
-   
+class InputFile extends Component { 
+
     onChange = (e) => {
-        
-        const {id}=this.props
-        const data = new FormData(e.target.parentElement);
-        const myFile=id+Date.now() + path.extname(e.target.value);
 
-        addImg({body: data, id: id, myFile: myFile })
-            .then((res) => console.log(res))
+        const { id, fetchImages } = this.props
+        const data = new FormData(e.target.parentElement);
+        const myFile = id + Date.now() + path.extname(e.target.value);
+
+        addImg({ body: data, id: id, myFile: myFile })
+            .then(
+                postImage({ url: myFile, id_journal: id })
+                    .then(res => res.json())
+                    .then((res) => { 
+                        alert('Снимок добавлен!')
+                        fetchImages(id);                        
+                    })
+                    .catch((err) => {
+                        console.error(err)
+                        alert(`ошибка при отправке`);
+                        return;
+                    }
+                    ))
             .catch((err) => console.error(err))
             
-
-
     }
 
     onSubmitForm = (e) => {
@@ -31,7 +42,7 @@ export default class InputFile extends Component {
 
     }
 
-    render() {
+    render() {        
         return (
             <div className="div-for-addDelImg">
                 <button
@@ -60,3 +71,7 @@ export default class InputFile extends Component {
         );
     }
 }
+const mapDispatchToProps = {
+    fetchImages: fetchImages,    
+}
+export default connect(null, mapDispatchToProps)(InputFile)

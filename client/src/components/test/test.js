@@ -11,21 +11,21 @@ import TestEdit from '../test-edit';
 
 
 class Test extends React.Component {
-    
+
     render() {
-        const {isType } = this.props;
+        const { isType } = this.props;
         if (isType !== 't')
-        return <Redirect to='/authentication' />
+            return <Redirect to='/authentication' />
         const defaultHiddenColumnNames = ["hbs", "hcv", "hiv", "date_created", "date_edit"]
 
 
         return (
             <div>
                 <Patients
-                    isControl={false}   
-                    colWidth={100}        
+                    isControl={false}
+                    colWidth={100}
                     defaultHiddenColumnNames={defaultHiddenColumnNames} />
-                    <TestEdit/>
+                <TestEdit />
             </div>
         )
     }

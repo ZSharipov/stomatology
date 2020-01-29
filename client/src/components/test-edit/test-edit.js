@@ -67,71 +67,52 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
             document.getElementById("rootDiv").style.visibility = 'visible'
     }, [id])
 
-    return ( <
-        div style = {
-            { visibility: "hidden" } }
-        id = "rootDiv"
-        className = "parent" >
-        <
-        div className = "child" >
-        <
-        li > { fio } < /li> <
-        /div>
+    return (
+        <div style={{ visibility: "hidden" }}
+            id="rootDiv"
+            className="parent" >
+            <div className="child" >
+                <li > {fio} </li>
+            </div>
 
-        <
-        div className = "child" >
-        <
-        div className = "custom-control custom-checkbox mb-3" >
-        <
-        input type = "checkbox"
-        checked = { hbsT }
-        onChange = { onHbsChange }
-        className = "custom-control-input"
-        id = "input1"
-        required / >
-        <
-        label className = "custom-control-label"
-        htmlFor = "input1" > hbs < /label> <
-        /div> <
-        /div> <
-        div className = "child" >
-        <
-        div className = "custom-control custom-checkbox mb-3" >
-        <
-        input type = "checkbox"
-        checked = { hcvT }
-        onChange = { onHcvChange }
-        className = "custom-control-input"
-        id = "input2"
-        required / >
-        <
-        label className = "custom-control-label"
-        htmlFor = "input2" > hcv < /label> <
-        /div> <
-        /div> <
-        div className = "child" >
-        <
-        div className = "custom-control custom-checkbox mb-3" >
-        <
-        input type = "checkbox"
-        checked = { hivT }
-        onChange = { onHivChange }
-        className = "custom-control-input"
-        id = "input3"
-        required / >
-        <
-        label className = "custom-control-label"
-        htmlFor = "input3" > hiv < /label> <
-        /div> <
-        /div>
+            <div className="child" >
+                <div className="custom-control custom-checkbox mb-3" >
+                    <input type="checkbox"
+                        checked={hbsT}
+                        onChange={onHbsChange}
+                        className="custom-control-input"
+                        id="input1"
+                        required />
+                    <label className="custom-control-label"
+                        htmlFor="input1" > hbs </label> </div> </div>
+            <div className="child" >
+                <div className="custom-control custom-checkbox mb-3" >
+                    <input type="checkbox"
+                        checked={hcvT}
+                        onChange={onHcvChange}
+                        className="custom-control-input"
+                        id="input2"
+                        required />
+                    <label className="custom-control-label"
+                        htmlFor="input2" > hcv </label>
+                </div> </div> <div className="child" >
+                <div className="custom-control custom-checkbox mb-3" >
+                    <input type="checkbox"
+                        checked={hivT}
+                        onChange={onHivChange}
+                        className="custom-control-input"
+                        id="input3"
+                        required />
+                    <label className="custom-control-label"
+                        htmlFor="input3" > hiv </label>
+                </div>
+            </div>
 
-        <
-        div className = "child" >
-        <
-        button onClick = { onButtonClick }
-        className = "btn btn-primary" > сохранить < /button> <
-        /div> <
-        /div>
+            <div className="child" >
+                <button onClick={onButtonClick}
+                    className="btn btn-primary" > сохранить </button>
+            </div>
+        </div>
     )
 }
 

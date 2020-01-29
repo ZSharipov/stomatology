@@ -9,11 +9,24 @@ const getPatients = _ =>
 const getJournal = (data) =>
     fetch(`${url}journal/${data}`);
 
+const getImages = (data) =>
+    fetch(`${url}image/${data}`);
+
 const getAllJournal = () =>
     fetch(`${url}journal`);
 
 const postJournal = (data) =>
     fetch(`${url}journal`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+const postImage = (data) =>
+    fetch(`${url}image`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -112,4 +125,6 @@ export {
     getAllJournal,
     delJournal,
     addImg,
+    postImage,
+    getImages,
 }

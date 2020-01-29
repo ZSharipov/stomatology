@@ -50,6 +50,16 @@ app.get('/patients', (req, res) => {
         }
     });
 });
+app.get('/image/:id', function(req, res) {
+    db.query(`SELECT url FROM image_url WHERE id_journal=?`, [req.params.id], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        }
+        res.send(result);
+    });
+});
 
 app.get('/journal/:id', function(req, res) {
     db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
@@ -107,6 +117,18 @@ app.get('/journal', function(req, res) {
 });
 app.post('/journal', function(req, res) {
     db.query(`INSERT INTO journal set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Data successfully inserted!',
+        });
+    });
+});
+app.post('/image', function(req, res) {
+    db.query(`INSERT INTO image_url set ?`, req.body, (err) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка при вставке");

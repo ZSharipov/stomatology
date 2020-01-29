@@ -1,12 +1,10 @@
 const initialState = {
+    error: null,
+    loading: true,
     test: 8,
+    currentSlideImage: 0,
     obj: null,
-    slides: [
-        'https://picsum.photos/500/300?image=0',
-        'https://picsum.photos/500/300?image=44',
-        'https://picsum.photos/500/300?image=22'
-
-    ],
+    slides: []
 };
 
 const manipulation = (state = initialState, action) => {
@@ -16,7 +14,33 @@ const manipulation = (state = initialState, action) => {
             return {
                 ...state,
                 obj: action.payload,
+            }
+        case "SET_CUR_IMAGES":
+            return {
+                ...state,
+                currentSlideImage: action.payload,
+            }
+        case "FETCH_IMAGES_REQUEST":
+            return {
+                ...state,
+                error: null,
+                loading: true,
 
+            }
+        case "FETCH_IMAGES_SUCCESS":
+            return {
+                ...state,
+                error: null,
+                slides: action.payload,
+                currentSlideImage: 0,
+                loading: false
+            }
+        case "FETCH_IMAGES_FAILURE":
+            return {
+                ...state,
+                slides: [],
+                error: action.payload,
+                loading: false
             }
 
         default:

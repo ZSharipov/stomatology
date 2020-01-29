@@ -118,8 +118,7 @@ const Patients = ({
 
     useEffect(() => {
         fetchPatients()
-    }, [fetchPatients]
-    )
+    }, [fetchPatients])
     useEffect(() => {
         setRows(patients)
     }, [patients])
@@ -168,8 +167,7 @@ const Patients = ({
                 if (changed[row.id]) {
                     editRow = { ...row, ...changed[row.id] };
                     return editRow
-                }
-                else {
+                } else {
                     return row
                 }
 
@@ -210,16 +208,14 @@ const Patients = ({
                         return;
                     })
 
-            }
-            else if (isType === 'r') {
+            } else if (isType === 'r') {
                 const patient = rows.find((row) => {
                     return row.id === deleted[0];
                 })
                 setPatientId(patient.id);
                 setPatientFio(patient.fio)
                 return
-            }
-            else if (isType === 't') {
+            } else if (isType === 't') {
                 const patient = rows.find((row) => {
                     return row.id === deleted[0];
                 })
@@ -265,56 +261,43 @@ const Patients = ({
 
     return (
         <div >
-            <Grid
-                rows={rows}
+            <Grid rows={rows}
                 columns={columns}
-                getRowId={getRowId}
-            >
-                <SortingState
-                    sorting={sorting}
+                getRowId={getRowId} >
+                <SortingState sorting={sorting}
                     onSortingChange={setSorting}
-                />
-                <FilteringState defaultFilters={[]} />
-                <EditingState
-                    onCommitChanges={commitChanges}
-                />
-                <IntegratedSorting />
+                /> <FilteringState defaultFilters={
+                    []}
+                /> <EditingState onCommitChanges={commitChanges}
+                /> <IntegratedSorting />
                 <IntegratedFiltering />
-                <PagingState
-                    defaultCurrentPage={0}
+                <PagingState defaultCurrentPage={0}
                     defaultPageSize={5}
-                />
-                <IntegratedPaging />
-                <Table
-                    messages={tableMessages}
+                /> <IntegratedPaging />
+                <Table messages={tableMessages}
                 />
 
 
 
-                <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-                <TableFilterRow messages={filterRowMessages} />
-                <TableHeaderRow showSortingControls />
-                <TableColumnVisibility
-                    defaultHiddenColumnNames={defaultHiddenColumnNames}
+                <TableColumnResizing defaultColumnWidths={defaultColumnWidths}
+                /> <TableFilterRow messages={filterRowMessages}
+                /> <TableHeaderRow showSortingControls />
+                <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames}
                 />
 
                 <TableEditRow />
-                <TableEditColumn
-                    showAddCommand={isControl}
+                <TableEditColumn showAddCommand={isControl}
                     showEditCommand={isControl}
-                    showDeleteCommand
-                    width={colWidth}
+                    showDeleteCommand width={colWidth}
                     messages={editColumnMessages}
                 />
 
 
 
-                <PagingPanel
-                    pageSizes={[5, 20, 100, 500]}
+                <PagingPanel pageSizes={
+                    [5, 20, 100, 500]}
                     messages={pagingPanelMessages}
-                />
-            </Grid>
-        </div>
+                /> </Grid> </div>
     );
 };
 

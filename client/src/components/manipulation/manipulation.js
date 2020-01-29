@@ -7,33 +7,35 @@ import Slider from './slider';
 import InputFile from './input-file';
 import RootTeeth from './root-teeth';
 import MilkTeeth from './milk-teeth';
+import {fetchImages} from '../../actions'
 
 
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
 import './manipulation.css';
 
 
-const Manipulation = ({ obj, history }) => {
-    const [id, setId] = useState(obj.id);
+const Manipulation = ({ obj, history, fetchImages, slides }) => {
+    const [id] = useState(obj.id);
     // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
     // const [doc_fio, setDoc_fio] = useState(obj.doc_fio);
     // const [id_patient, setId_patient] = useState(obj.id_patient);
-    const [pat_fio, setPat_fio] = useState(obj.pat_fio);
-    const [birth_day, setBirth_day] = useState(obj.birth_day);
-    const [address, setAddress] = useState(obj.address);
-    const [tel, setTel] = useState(obj.tel);
+    const [pat_fio] = useState(obj.pat_fio);
+    const [birth_day] = useState(obj.birth_day);
+    const [address] = useState(obj.address);
+    const [tel] = useState(obj.tel);
     // const [note, setNote] = useState(obj.note);
     // const [date_created, setDate_created] = useState(obj.date_created);
     // const [date_edit, setDate_edit] = useState(obj.date_edit);
     // const [date_done, setDate_done] = useState(obj.date_done);
-    // const [hbs, setHbs] = useState(obj.hbs);
-    // const [hcv, setHcv] = useState(obj.hcv);
-    // const [hiv, setHiv] = useState(obj.hiv);
+    const [hbs] = useState(obj.hbs);
+    const [hcv] = useState(obj.hcv);
+    const [hiv] = useState(obj.hiv);
     // const [is_deciduous, setis_Deciduous] = useState(obj.is_deciduous);
     // const [state, setState] = useState(obj.state);
 
-
-
+    useEffect(() => {
+        fetchImages(id)
+    }, [id])
 
     const onBtnClick = () => {
         history.goBack();
@@ -64,14 +66,13 @@ const Manipulation = ({ obj, history }) => {
 
                 <div>
                     <div className="div-slider">
-                        <h1>here my slider</h1>
-                        <Slider />
+                        <Slider slides={slides} id={id} />
                     </div>
                 </div>
             </div>
             <div className="div-img-loader">
                 <div>
-                    <InputFile id={id}/>
+                    <InputFile id={id} />
                 </div>
             </div>
 
@@ -87,7 +88,7 @@ const Manipulation = ({ obj, history }) => {
                     <MilkTeeth />
                 </div>
             </div>
-            
+
 
             <div>
                 <button onClick={onBtnClick}>back</button>
@@ -100,7 +101,12 @@ const Manipulation = ({ obj, history }) => {
 const mapStateToProps = (state) => {
     return {
         obj: state.manipulation.obj,
+        slides: state.manipulation.slides,
     }
 }
+const mapDispatchToProps = {
+    fetchImages: fetchImages,
+}
 
-export default withRouter(connect(mapStateToProps)(Manipulation));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Manipulation));

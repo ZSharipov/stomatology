@@ -12,11 +12,11 @@ app.use(cors());
 const getStorage = (dirName, myFileName) => {
     var storage = multer.diskStorage({
         destination: function(req, file, callback) {
-            mkdirp(`./images/${dirName}`, function(err) {
+            mkdirp(`./client/public/images/${dirName}`, function(err) {
                 if (err) {
                     console.log(err.stack)
                 } else {
-                    callback(null, `./images/${dirName}`);
+                    callback(null, `./client/public/images/${dirName}`);
                 }
             })
         },
@@ -34,7 +34,7 @@ app.post('/file/:id/:myFile', function(req, res) {
         storage: getStorage(req.params.id, req.params.myFile),
 
         fileFilter: function(req, file, callback) {
-            var ext = path.extname(file.originalname);
+            var ext = path.extname(file.originalname).toLowerCase();
             if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.bmp') {
                 return callback(new Error('Only images are allowed'))
             }
