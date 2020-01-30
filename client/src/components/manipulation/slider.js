@@ -35,9 +35,19 @@ class Slider extends Component {
         return (
 
             <div className="container">
-                <button onClick={() => this.handlePrevButton()}>Prev</button>
-                <img src={src} alt="slider-item" />
-                <button onClick={() => this.handleNextButton()}>Next</button>
+                <div className="slider-left">
+                    <button onClick={() => this.handlePrevButton()}>&larr;</button>
+                </div>
+                <div className="slider-center">
+                    <img src={src} alt="slider-item" />
+                </div>
+                <div className="slider-right">
+                    <button onClick={() => this.handleNextButton()}>&rarr;</button>
+                </div>
+                
+                
+                
+                
             </div>
         );
     }

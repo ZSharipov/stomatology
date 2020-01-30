@@ -13,3 +13,23 @@
 .header ul button:hover {
     background-color: rgb(216, 191, 191);
 }
+
+.header button {
+    background: #fff;
+    color: #333;
+    border: 2px solid #333;
+    transition: .3s;
+}
+
+.header button:hover {
+    transition: .3s;
+    background: #eeeeee99 !important;
+    border: 2px solid #333;
+    color: #333;
+}
+
+.header button.exitbtn {
+    text-align: right;
+    float: right;
+    margin-right: 20px;
+}

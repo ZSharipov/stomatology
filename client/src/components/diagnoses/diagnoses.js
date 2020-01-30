@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '@icon/open-iconic/open-iconic.css'
-import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+//import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 
 import {
     FilteringState,
@@ -59,8 +59,8 @@ const Diagnoses = () => {
     ]
 
     const [defaultColumnWidths] = useState([
-        { columnName: 'code', width:  48},
-        { columnName: 'text', width: 197 }
+        { columnName: 'code', width:  45},
+        { columnName: 'text', width: 127 }
     ]);
 
 

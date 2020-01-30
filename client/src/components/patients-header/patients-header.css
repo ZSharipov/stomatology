@@ -1,0 +1,33 @@
+.patients-header {
+    text-align: center;
+    margin-top: 60px;
+    border: 2px solid #333;
+    border-radius: 2px;
+    padding: 20px;
+    width: 600px;
+    margin: 40px auto;
+}
+
+.patients-header h1,
+.patients-header h2 {
+    font-size: 26px;
+}
+
+.patients-header button {
+    margin-top: 30px;
+    padding: 4px 32px 5px 32px;
+    background: #fff;
+    color: #333;
+    transition: .3s;
+    border: 2px solid #333;
+    border-radius: 0px;
+}
+
+.patients-header button:hover,
+.patients-header button:active,
+.patients-header button:focus {
+    background: #eeeeee99;
+    color: #333;
+    transition: .3s;
+    border: 2px solid #000;
+}

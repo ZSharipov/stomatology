@@ -2,3 +2,26 @@
     display: inline-block;
     padding-right: 2rem;
 }
+
+.child .fio {
+    list-style-type: none;
+}
+
+.child:last-child {
+    float: right;
+    padding-right: 10px;
+}
+
+.child:first-child {
+    padding-left: 10px;
+}
+
+.parent {
+    margin-top: 10px;
+}
+
+.container>div {
+    border: 2px solid #eeeeee99;
+    border-top: 0;
+    margin-bottom: 30px;
+}

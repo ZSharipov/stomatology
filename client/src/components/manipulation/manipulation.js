@@ -72,42 +72,47 @@ const Manipulation = ({ obj, history, fetchImages, slides }) => {
     return (
         <div className='root-div'>
             <div className='pat-info-div'>
-                <div>
-                    <div className="div-pair">
-                        <div className="pat-label-div">Ф. И. О. :</div>
-                        <div className="pat-value-div">{pat_fio}</div>
-                    </div>
-                    <div className="div-pair">
-                        <div className="pat-label-div">Дата рождения: </div>
-                        <div className="pat-value-div">{birth_day}</div>
-                    </div>
-                    <div className="div-pair">
-                        <div className="pat-label-div">Адрес:</div>
-                        <div className="pat-value-div address-div">{address}</div>
-                    </div>
-                    <div className="div-pair">
-                        <div className="pat-label-div">Телефон:</div>
-                        <div className="pat-value-div">{tel}</div>
-                    </div>
-                    <div className="div-pair">
-                        <div>Анализы:</div>
-                        <div className={hbsClass}>hbs</div>
-                        <div className={hcvClass}>hcv</div>
-                        <div className={hivClass}>hiv</div>
-                    </div>
+                <div className="left-part">
+                    <table class="main-table">
+                        <tr>
+                            <td>Ф. И. О.</td>
+                            <td>{pat_fio}</td>
+                        </tr>
+                        <tr>
+                            <td>Дата рождения</td>
+                            <td>{birth_day}</td>
+                        </tr>
+                        <tr>
+                            <td>Адрес</td>
+                            <td>{address}</td>
+                        </tr>
+                        <tr>
+                            <td>Телефон</td>
+                            <td>{tel}</td>
+                        </tr>
+                        <tr>
+                            <td>Анализы</td>
+                            <td>
+                                <div className={hbsClass}>hbs</div>
+                                <div className={hcvClass}>hcv</div>
+                                <div className={hivClass}>hiv</div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
-                <div>
+                <div className="right-part">
                     <div className="div-slider">
                         <Slider slides={slides} id={id} />
                     </div>
+                    <div className="div-img-loader">
+                        <div>
+                            <InputFile id={id} />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="div-img-loader">
-                <div>
-                    <InputFile id={id} />
-                </div>
-            </div>
+            
 
 
             <div className='div-for-params'>
@@ -129,47 +134,49 @@ const Manipulation = ({ obj, history, fetchImages, slides }) => {
                     <label>Пломбировочные материалы</label>
                     <Materials />
                 </div>
-                <div className="div-block div-milk-teeth">
+                <div className="div-block div-milk-teeth-tbl">
                     <label>Обезболивание</label>
                     <TempTable dataRows={anaesthetization} />
                 </div>
-                <div className="div-block div-milk-teeth">
+                <div className="div-block div-milk-teeth-tbl">
                     <label>Анестезия</label>
                     <TempTable dataRows={anaesthesia} />
                 </div>
             </div>
-
-            <div>
-                <textarea> dskjfasdjfadsklfskjlad
-                    dkfljasdk;jladsk;gj;dfkg kdfsjgkdfsgkdfshgjkldfshkj
-                    dfskjghdfskjlghldfskjghdfskjl
-                    fdklgjdsfk;lgjdfsk;lgjdfskjgdfsk;lgjk;l
-                </textarea>
+            <div class="footer">
+            <div class="footer-left">
+                <div class="txt-area-block">
+                    <textarea> dskjfasdjfadsklfskjlad
+                        dkfljasdk;jladsk;gj;dfkg kdfsjgkdfsgkdfshgjkldfshkj
+                        dfskjghdfskjlghldfskjghdfskjl
+                        fdklgjdsfk;lgjdfsk;lgjdfskjgdfsk;lgjk;l
+                    </textarea>
+                </div>
             </div>
-
-            <div>
-                <label>
-                    <input name="r1" type="radio" value="1" />
-                    В очереди
-                </label>
-                <label>
-                    <input name="r1" type="radio" value="2" />
-                    Рассматривается
-                </label>
-                <label>
-                    <input name="r1" type="radio" value="3" />
-                    Выполнено
-                </label>
-                <label>
-                    <input name="r1" type="radio" value="3" />
-                    Отменено
-                </label>
+            <div class="footer-right">
+                <div className="status-wrapper">
+                    <label>
+                        <input name="r1" type="radio" value="1" />
+                        В очереди
+                    </label>
+                    <label>
+                        <input name="r1" type="radio" value="2" />
+                        Рассматривается
+                    </label>
+                    <label>
+                        <input name="r1" type="radio" value="3" />
+                        Выполнено
+                    </label>
+                    <label>
+                        <input name="r1" type="radio" value="3" />
+                        Отменено
+                    </label>
+                </div>
+                <div className="action-buttons">
+                    <button onClick={onBtnClick}>Сохранить</button>
+                    <button onClick={onBtnClick}>Отмена</button>
+                </div>
             </div>
-
-
-
-            <div>
-                <button onClick={onBtnClick}>back</button>
             </div>
         </div>
     )

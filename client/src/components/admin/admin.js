@@ -16,25 +16,25 @@ const Admin = ({isType }) => {
         return <Redirect to='/authentication' />
     const onPatientBtnClcik = () => {
         if (document.getElementById("div1")) {
-            document.getElementById("div1").style.visibility = 'visible';
-            document.getElementById('div2').style.visibility = 'hidden';
-            document.getElementById('div3').style.visibility = 'hidden';
+            document.getElementById("div1").style.display = 'block';
+            document.getElementById('div2').style.display = 'none';
+            document.getElementById('div3').style.display = 'none';
         }
 
     }
     const onDoctorsBtnClcik = () => {
         if (document.getElementById("div2")) {
-            document.getElementById("div2").style.visibility = 'visible';
-            document.getElementById('div1').style.visibility = 'hidden';
-            document.getElementById('div3').style.visibility = 'hidden';
+            document.getElementById("div2").style.display = 'block';
+            document.getElementById('div1').style.display = 'none';
+            document.getElementById('div3').style.display = 'none';
         }
 
     }
     const onJournalBtnClcik = () => {
         if (document.getElementById("div1")) {
-            document.getElementById("div3").style.visibility = 'visible';
-            document.getElementById("div1").style.visibility = 'hidden';
-            document.getElementById('div2').style.visibility = 'hidden';
+            document.getElementById("div3").style.display = 'block';
+            document.getElementById('div1').style.display = 'none';
+            document.getElementById('div2').style.display = 'none';
         }
 
     }
@@ -42,10 +42,11 @@ const Admin = ({isType }) => {
     return (
         <div >
             <div className="header d-flex">
-                <ul className="d-flex">
-                    <button onClick={onPatientBtnClcik} className='btn btn-primary'>Пациенты</button>
-                    <button onClick={onDoctorsBtnClcik} className='btn btn-primary'>Работники</button>
+                <ul className="d-block w-100">
+                    <button onClick={onPatientBtnClcik} className='btn btn-primary mr-2'>Пациенты</button>
+                    <button onClick={onDoctorsBtnClcik} className='btn btn-primary mr-2'>Работники</button>
                     <button onClick={onJournalBtnClcik} className='btn btn-primary'>Журнал</button>
+                    <button onClick={onJournalBtnClcik} className='btn btn-primary exitbtn'>Выход</button>
                 </ul>
             </div>
             <div id="div1" className='div-for-patients'>

@@ -1,4 +1,4 @@
-.pat-info-div {
+/*.pat-info-div {
     display: flex;
     margin: 15px, 0;
 }
@@ -34,4 +34,282 @@
 
 .pat-label-div {
     min-width: 120px;
+}*/
+
+body {
+    font-size: 16px;
+}
+
+.left-part {
+    width: 500px;
+    margin: 0;
+    display: inline-block;
+}
+
+.right-part {
+    padding-top: 20px;
+    width: 300px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.pat-info-div .div-pair>div {
+    border: 1px solid #eee;
+}
+
+.pat-info-div .div-pair .pat-label-div {
+    width: 100%;
+    max-width: 140px;
+}
+
+.main-table {
+    margin-top: 20px;
+}
+
+.main-table td {
+    border: 1px solid #eee;
+    padding: 4px 8px;
+    vertical-align: top;
+}
+
+.main-table td:first-child {
+    min-width: 140px;
+}
+
+.main-table td:last-child {
+    min-width: 300px;
+}
+
+.main-table tr:nth-child(odd) {
+    background: #eeeeee44;
+}
+
+.div-img-loader {
+    display: block;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.div-img-loader button {
+    margin-right: 10px;
+    padding: 2px 15px;
+    border: 2px solid #666;
+    background: #eeeeee99;
+    width: 110px;
+    transition: .3s;
+}
+
+.div-img-loader button:first-child {
+    margin-left: 55px;
+}
+
+.div-img-loader button:hover,
+.div-img-loader button:focus,
+.div-img-loader button:active {
+    background: #ffffff;
+    border: 2px solid #333;
+    transition: .3s;
+}
+
+.div-slider img {
+    width: 250px;
+    height: 200px;
+    object-fit: scale-down;
+    object-position: center;
+}
+
+.div-slider button {
+    background: #ffffff;
+    border: 1px solid #333;
+    box-shadow: 0;
+    border-radius: 18px;
+    line-height: 24px;
+}
+
+.div-slider .slider-left {
+    width: 30px;
+    display: inline-block;
+}
+
+.div-slider .slider-center {
+    width: 200px;
+    display: inline-block;
+}
+
+.div-slider .slider-right {
+    width: 30px;
+    display: inline-block;
+    position: relative;
+    right: -52px;
+}
+
+.test-div0 {
+    color: green;
+}
+
+.test-div1 {
+    color: red;
+}
+
+.div-for-params {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.div-for-params .div-block {
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.div-for-params .div-block label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.div-root-teeth button,
+.div-milk-teeth button {
+    background: #fff !important;
+    border: 1px solid #333 !important;
+    border-right: 0px !important;
+    border-bottom: 0px !important;
+    box-shadow: 0 !important;
+    transition: .3s !important;
+}
+
+.div-root-teeth button:last-child,
+.div-milk-teeth button:last-child {
+    border-right: 1px solid #333 !important;
+}
+
+.div-root-teeth>div>div:last-child button,
+.div-milk-teeth>div>div:last-child button {
+    border-bottom: 1px solid #333 !important;
+}
+
+.div-root-teeth button:hover,
+.div-root-teeth button:active,
+.div-root-teeth button:focus,
+.div-milk-teeth button:hover,
+.div-milk-teeth button:active,
+.div-milk-teeth button:focus {
+    background: #eeeeee99 !important;
+    transition: .3s !important;
+}
+
+.div-table-diagnoses th .input-group input,
+.div-milk-teeth-tbl th .input-group input {
+    border: 0 !important;
+    box-shadow: 0 !important;
+    padding: 2px 4px !important;
+    color: #333 !important;
+}
+
+.div-table-diagnoses tbody td:first-child,
+.div-milk-teeth-tbl tbody td:first-child {
+    overflow: hidden !important;
+}
+
+.div-table-diagnoses tbody td .dx-g-bs4-table-cell,
+.div-milk-teeth-tbl tbody td .dx-g-bs4-table-cell {
+    overflow: hidden !important;
+    padding: 4px 2px !important;
+}
+
+.div-table-diagnoses tbody tr td,
+.div-milk-teeth-tbl tbody tr td {
+    padding: 5px 10px !important;
+    color: #333 !important;
+}
+
+.div-table-diagnoses tbody tr:nth-child(odd),
+.div-milk-teeth-tbl tbody tr:nth-child(odd) {
+    background: #eeeeee55 !important;
+}
+
+.div-for-rows {
+    width: 264px !important;
+}
+
+.div-for-rows table {
+    margin-bottom: 0 !important;
+}
+
+.txt-area-block {
+    margin-top: 0px;
+    width: 100%;
+}
+
+.txt-area-block textarea {
+    width: 570px;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 7px 8px;
+    min-height: 250px;
+    height: 100%;
+}
+
+.status-wrapper {
+    margin-left: 150px;
+    margin-bottom: 10px;
+}
+
+.status-wrapper label {
+    display: block;
+    margin-right: 20px;
+    color: #333;
+    font-size: 18px;
+}
+
+.status-wrapper label:last-child {
+    margin-right: 0px;
+}
+
+.status-wrapper input {
+    margin-right: 5px;
+    padding: 3px;
+    color: #333;
+}
+
+.action-buttons {
+    margin-bottom: 30px;
+}
+
+.action-buttons button {
+    border: 2px solid #333;
+    background: #fff;
+    color: #333;
+    transition: .3s;
+    padding: 4px 22px;
+    margin-right: 15px;
+}
+
+.action-buttons button:hover,
+.action-buttons button:active,
+.action-buttons button:focus {
+    background: #cccccc99;
+    transition: .3s;
+}
+
+.footer-left {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 550px;
+}
+
+.footer-right {
+    width: 400px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.footer-right .action-buttons {
+    float: right;
+}
+
+.footer {
+    display: block;
+    margin-top: 30px;
 }

@@ -15,25 +15,26 @@ const Operation = ({ isType, fio }) => {
 
 
     return (
-        <div >
+        <div className="div-wrapper">
             <div id="div1" className='div-for-label'>
                 <h2>{fio}</h2>
+                <button>Выход</button>
             </div>
             <div className="div-pair">
                 <label>
-                   <span style={{border:'1px solid #ccc ', backgroundColor:'#20f13826',minWidth:'20px', color:'#20f13826'}}>00</span>
+                    <div className="type" style={{backgroundColor:"#20f13826"}}></div>
                     В очереди
                 </label>
                 <label>
-                   <span style={{border:'1px solid #ccc ', backgroundColor:'#e1eb90',minWidth:'20px', color:'#e1eb90'}}>00</span>
+                    <div className="type" style={{backgroundColor:"#e1eb90"}}></div>
                     Рассматривается
                 </label>
                 <label>
-                   <span style={{border:'1px solid #ccc ', backgroundColor:'white',minWidth:'20px', color:'white'}}>00</span>
+                    <div className="type border-wrap-white" style={{backgroundColor:"#ffffff"}}></div>
                     Выполнено
                 </label>
                 <label>
-                   <span style={{border:'1px solid #ccc ', backgroundColor:'#f3c4c4',minWidth:'20px', color:'#f3c4c4'}}>00</span>
+                    <div className="type" style={{backgroundColor:"#f3c4c4"}}></div>
                     Отменено
                 </label>
             </div>

@@ -53,8 +53,8 @@ class Authentication extends React.Component {
             <div className="div-center">
                 <div className="form-parent" >
                     <div
-                        className="alert alert-success">
-                        <h2 className="alert-heading">Вход в систему</h2>
+                        className="alert">
+                        <h2 className="alert-heading text-center mt-5">Вход в систему</h2>
                         <hr />
 
                         <div className="input-group mb-3">

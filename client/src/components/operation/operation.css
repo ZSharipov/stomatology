@@ -1,0 +1,57 @@
+.div-for-label h2 {
+    font-size: 24px;
+    padding: 10px;
+    margin-left: 5px;
+}
+
+.div-for-label button {
+    float: right;
+    position: relative;
+    top: -40px;
+    right: 10px;
+    background: #fff;
+    color: #333;
+    border: 2px solid #333;
+    padding: 2px 16px;
+    transition: .3s;
+}
+
+.div-for-label button:hover,
+.div-for-label button:focus,
+.div-for-label button:active {
+    background: #eeeeee99;
+    transition: .3s;
+}
+
+.div-wrapper {
+    border-left: 2px;
+    border-right: 2px;
+    border-top: 0;
+    border-bottom: 2px;
+    border-style: solid;
+    border-color: #eeeeee99;
+}
+
+.div-pair {
+    padding: 0px 15px;
+}
+
+.div-pair .type {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.div-pair label {
+    color: #333;
+    font-weight: 600;
+    margin-right: 25px;
+}
+
+.div-pair .border-wrap-white {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

@@ -72,7 +72,7 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
             id="rootDiv"
             className="parent" >
             <div className="child" >
-                <li > {fio} </li>
+                <li className="fio"> {fio} </li>
             </div>
 
             <div className="child" >
