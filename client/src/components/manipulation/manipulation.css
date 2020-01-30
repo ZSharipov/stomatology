@@ -16,6 +16,14 @@
     margin: 15px, 0;
 }
 
+.test-div0 {
+    background-color: green;
+}
+
+.test-div1 {
+    background-color: red;
+}
+
 .pat-value-div {
     margin-left: 50px;
 }

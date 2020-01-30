@@ -64,9 +64,7 @@ app.get('/image/:id', function(req, res) {
 
 app.get('/journal/:id', function(req, res) {
     db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
-    if(p.hbs = 0,'-','+') as hbs,
-    if( p.hcv = 0,'-','+') as hcv,
-    if(p.hiv = 0,'-','+') as hiv,
+    p.hbs, p.hcv, p.hiv,
     if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous,
     CASE
         WHEN j.state = 0 

@@ -19,6 +19,27 @@ const Operation = ({ isType, fio }) => {
             <div id="div1" className='div-for-label'>
                 <h2>{fio}</h2>
             </div>
+            <div className="div-pair">
+                <label>
+                   <span style={{border:'1px solid #ccc ', backgroundColor:'#20f13826',minWidth:'20px', color:'#20f13826'}}>00</span>
+                    В очереди
+                </label>
+                <label>
+                   <span style={{border:'1px solid #ccc ', backgroundColor:'#e1eb90',minWidth:'20px', color:'#e1eb90'}}>00</span>
+                    Рассматривается
+                </label>
+                <label>
+                   <span style={{border:'1px solid #ccc ', backgroundColor:'white',minWidth:'20px', color:'white'}}>00</span>
+                    Выполнено
+                </label>
+                <label>
+                   <span style={{border:'1px solid #ccc ', backgroundColor:'#f3c4c4',minWidth:'20px', color:'#f3c4c4'}}>00</span>
+                    Отменено
+                </label>
+            </div>
+            
+            
+
             <div id="div2" className='div-for-journal'>
                 <Journal style={{ visibility: "hidden" }}
                     defaultHiddenColumnNames={[
