@@ -16,6 +16,7 @@ const cors = require('cors');
 app.use(bodyParser.json());
 app.use(cors());
 
+
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -194,6 +195,20 @@ app.delete('/doctors', function(req, res) {
 });
 app.delete('/patients', function(req, res) {
     db.query('DELETE FROM patients WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Data successfully deleted!',
+        });
+    });
+});
+app.delete('/image', function(req, res) {
+    console.log(req.body)
+
+    db.query('DELETE FROM image_url WHERE `url` = ?', req.body, (err) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка при удаление");

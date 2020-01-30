@@ -102,7 +102,21 @@ const delJournal = (data) =>
         },
         body: JSON.stringify(data)
     });
+const delImgDb = (data) =>
+    fetch(`${url}image`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 
+const delImgFs = (id, myFile) =>
+    fetch(`http://localhost:3211/file/del/${id}/${myFile}`, {
+        method: 'POST',
+
+    });
 const addImg = ({ body, id, myFile }) =>
     fetch(`http://localhost:3211/file/${id}/${myFile}`, {
         method: 'POST',
@@ -127,4 +141,6 @@ export {
     addImg,
     postImage,
     getImages,
+    delImgDb,
+    delImgFs,
 }

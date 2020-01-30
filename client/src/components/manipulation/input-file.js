@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import './input-file.css'
 import path from 'path'
-import { addImg, postImage } from '../../services/server-service'
+import { addImg, postImage, delImgDb, delImgFs } from '../../services/server-service'
 import { connect } from 'react-redux'
 import { fetchImages } from '../../actions'
 
 
-class InputFile extends Component { 
+class InputFile extends Component {
 
     onChange = (e) => {
-
         const { id, fetchImages } = this.props
+
         const data = new FormData(e.target.parentElement);
         const myFile = id + Date.now() + path.extname(e.target.value);
 
@@ -18,9 +18,9 @@ class InputFile extends Component {
             .then(
                 postImage({ url: myFile, id_journal: id })
                     .then(res => res.json())
-                    .then((res) => { 
+                    .then((res) => {
                         alert('Снимок добавлен!')
-                        fetchImages(id);                        
+                        fetchImages(id);
                     })
                     .catch((err) => {
                         console.error(err)
@@ -29,7 +29,7 @@ class InputFile extends Component {
                     }
                     ))
             .catch((err) => console.error(err))
-            
+
     }
 
     onSubmitForm = (e) => {
@@ -41,15 +41,43 @@ class InputFile extends Component {
         //     .catch((err) => console.error(err))
 
     }
+    onImgDelete = () => {
+        const { slides, currentSlideImage, id, fetchImages } = this.props
+        if (!slides || slides.length === 0)
+            return
+        const deletingFile = slides[currentSlideImage].url;
+        delImgDb([deletingFile])
+            .then(() => {
+                delImgFs(id,deletingFile)
+                    .then((res) => {
+                        fetchImages(id)
+                        console.log(res)
+                    })
+                    .catch((err) => {
+                        console.error(err)
+                        return;
+                    })
+                console.log("файл из БД удален");
+            }
+            )
+            .catch((err) => {
+                console.error(err)
+                return;
+            })
+        console.log(deletingFile)
+        console.log(`${id}/${deletingFile}`)
 
-    render() {        
+
+    }
+
+    render() {
         return (
             <div className="div-for-addDelImg">
                 <button
                     onClick={() => { document.getElementById('hack').click() }}>Добавить
                 </button>
                 <button
-                    onClick={(arg) => console.log('del', arg)}>Удалить
+                    onClick={this.onImgDelete}>Удалить
                 </button>
 
                 <form id="uploadForm"
@@ -71,7 +99,12 @@ class InputFile extends Component {
         );
     }
 }
+const mapStateToProps = (state) => ({
+    slides: state.manipulation.slides,
+    currentSlideImage: state.manipulation.currentSlideImage,
+})
+
 const mapDispatchToProps = {
-    fetchImages: fetchImages,    
+    fetchImages: fetchImages,
 }
-export default connect(null, mapDispatchToProps)(InputFile)
+export default connect(mapStateToProps, mapDispatchToProps)(InputFile)
