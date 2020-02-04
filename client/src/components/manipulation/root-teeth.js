@@ -6,7 +6,7 @@ const RootTeeth = () => {
         for (let index = 1; index < 9; index++) {
             btns.push(
                 <button
-                style={{padding:'3px'}}
+                style={{padding:'4px', width:'32px'}}
                     key={index}
                     className="my-btn">
                     {firstSybol}{index}

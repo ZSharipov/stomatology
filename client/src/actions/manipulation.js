@@ -12,7 +12,12 @@ const setCurImage = (img) => {
         payload: img,
     }
 }
-
+const setJournalState = (jurnState) => {
+    return {
+        type: "SET_JOUNAL_STATE",
+        payload: jurnState,
+    }
+}
 
 const imagesRequested = () => {
     return {
@@ -44,4 +49,5 @@ export {
     fetchImages,
     openPatient,
     setCurImage,
+    setJournalState,
 }

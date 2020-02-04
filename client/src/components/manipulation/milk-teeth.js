@@ -7,7 +7,7 @@ const MilkTeeth = () => {
         for (let index = 0; index < 5; index++) {
             btns.push(
                 <button
-                    style={{ padding: '3px', width: '40px' }}
+                    style={{ padding: '4px', width: '50px' }}
                     key={index}
                     className="my-btn">
                     {firstSybol}({arr[index]})

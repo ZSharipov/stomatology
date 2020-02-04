@@ -4,7 +4,7 @@ import { fetchJournal, fetchAllJournal } from './journal';
 import { authentication } from './authentication';
 import { fetchPatients } from './patients';
 import { setTestData } from './test';
-import { openPatient, fetchImages, setCurImage } from './manipulation';
+import { openPatient, fetchImages, setCurImage, setJournalState } from './manipulation';
 
 export {
     authentication,
@@ -17,4 +17,6 @@ export {
     openPatient,
     fetchImages,
     setCurImage,
+    setJournalState,
+
 }

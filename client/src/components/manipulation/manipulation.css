@@ -226,7 +226,7 @@ body {
 
 .div-table-diagnoses tbody tr:nth-child(odd),
 .div-milk-teeth-tbl tbody tr:nth-child(odd) {
-    background: #eeeeee55 !important;
+    background: #eeeeee55;
 }
 
 .div-for-rows {
@@ -312,4 +312,11 @@ body {
 .footer {
     display: block;
     margin-top: 30px;
+}
+
+@media (max-width:990px) {
+    .div-for-params>div.div-block {
+        display: block !important;
+        width: 50%;
+    }
 }

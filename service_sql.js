@@ -64,21 +64,10 @@ app.get('/image/:id', function(req, res) {
 
 app.get('/journal/:id', function(req, res) {
     db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
-    p.hbs, p.hcv, p.hiv,
-    if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous,
-    CASE
-        WHEN j.state = 0 
-            THEN '(1) В очереди'
-        WHEN j.state = 1 
-            THEN '(2) Рассматривается'
-        WHEN j.state = 2 
-            THEN '(3) Выполнено'
-        WHEN j.state = 3 
-            THEN '(4) Отменено'    
-    END AS state
-FROM journal j 
-LEFT JOIN doctors d on j.id_doctor=d.id
-LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=?`, [req.params.id], (err, result) => {
+    p.hbs, p.hcv, p.hiv,if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous, j.state as state
+    FROM journal j 
+    LEFT JOIN doctors d on j.id_doctor=d.id
+    LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=?`, [req.params.id], (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");

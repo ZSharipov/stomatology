@@ -1,0 +1,3 @@
+
+serve -s build
+pause

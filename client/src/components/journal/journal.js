@@ -205,18 +205,21 @@ const Journal = ({
 
         let cellStyle;
         switch (cellValue) {
-            case '(1) В очереди':
+            case '0':
                 cellStyle = { backgroundColor: '#20f13826' }
                 break;
-            case '(2) Рассматривается':
+            case '1':
                 cellStyle = { backgroundColor: '#e1eb90' }
                 break;
-            case '(3) Выполнено':
+            case '2':
                 cellStyle = { backgroundColor: 'white' }
+                break;
+            case '3':
+                cellStyle = { backgroundColor: '#f3c4c4' }
                 break;
 
             default:
-                cellStyle = { backgroundColor: '#f3c4c4' }
+                cellStyle = { backgroundColor: 'white' }
                 break;
         }
         return (

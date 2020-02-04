@@ -9,14 +9,15 @@ import Slider from './slider';
 import InputFile from './input-file';
 import RootTeeth from './root-teeth';
 import MilkTeeth from './milk-teeth';
-import { fetchImages } from '../../actions'
+import { fetchImages, setJournalState } from '../../actions'
 
 
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
 import './manipulation.css';
 
 
-const Manipulation = ({ obj, history, fetchImages, slides }) => {
+const Manipulation = ({ obj, history, fetchImages, slides, setJourState, jourState }) => {
+
     const [id] = useState(obj.id);
     // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
     // const [doc_fio, setDoc_fio] = useState(obj.doc_fio);
@@ -65,9 +66,12 @@ const Manipulation = ({ obj, history, fetchImages, slides }) => {
     }, [id])
 
     const onBtnClick = () => {
-        history.goBack();
+        console.log(jourState)
+        // history.goBack();
     }
-    console.log(obj)
+    const inputChange = (e) => {
+        setJourState(e.target.value);
+    }
 
     return (
         <div className='root-div'>
@@ -112,7 +116,7 @@ const Manipulation = ({ obj, history, fetchImages, slides }) => {
                     </div>
                 </div>
             </div>
-            
+
 
 
             <div className='div-for-params'>
@@ -144,39 +148,39 @@ const Manipulation = ({ obj, history, fetchImages, slides }) => {
                 </div>
             </div>
             <div class="footer">
-            <div class="footer-left">
-                <div class="txt-area-block">
-                    <textarea> dskjfasdjfadsklfskjlad
-                        dkfljasdk;jladsk;gj;dfkg kdfsjgkdfsgkdfshgjkldfshkj
-                        dfskjghdfskjlghldfskjghdfskjl
-                        fdklgjdsfk;lgjdfsk;lgjdfskjgdfsk;lgjk;l
+                <div class="footer-left">
+                    <div class="txt-area-block">
+                        <textarea> dskjfasdjfadsklfskjlad
+                            dkfljasdk;jladsk;gj;dfkg kdfsjgkdfsgkdfshgjkldfshkj
+                            dfskjghdfskjlghldfskjghdfskjl
+                            fdklgjdsfk;lgjdfsk;lgjdfskjgdfsk;lgjk;l
                     </textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="footer-right">
-                <div className="status-wrapper">
-                    <label>
-                        <input name="r1" type="radio" value="1" />
-                        В очереди
+                <div class="footer-right">
+                    <div className="status-wrapper">
+                        <label>
+                            <input onChange={inputChange} name="r1" type="radio" value="0" />
+                            В очереди
                     </label>
-                    <label>
-                        <input name="r1" type="radio" value="2" />
-                        Рассматривается
+                        <label>
+                            <input onChange={inputChange} name="r1" type="radio" value="1" />
+                            Рассматривается
                     </label>
-                    <label>
-                        <input name="r1" type="radio" value="3" />
-                        Выполнено
+                        <label>
+                            <input onChange={inputChange} name="r1" type="radio" value="2" />
+                            Выполнено
                     </label>
-                    <label>
-                        <input name="r1" type="radio" value="3" />
-                        Отменено
+                        <label>
+                            <input onChange={inputChange} name="r1" type="radio" value="3" />
+                            Отменено
                     </label>
+                    </div>
+                    <div className="action-buttons">
+                        <button onClick={onBtnClick}>Сохранить</button>
+                        <button onClick={onBtnClick}>Отмена</button>
+                    </div>
                 </div>
-                <div className="action-buttons">
-                    <button onClick={onBtnClick}>Сохранить</button>
-                    <button onClick={onBtnClick}>Отмена</button>
-                </div>
-            </div>
             </div>
         </div>
     )
@@ -187,10 +191,12 @@ const mapStateToProps = (state) => {
     return {
         obj: state.manipulation.obj,
         slides: state.manipulation.slides,
+        jourState: state.manipulation.journalState,
     }
 }
 const mapDispatchToProps = {
     fetchImages: fetchImages,
+    setJourState: setJournalState
 }
 
 

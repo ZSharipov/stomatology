@@ -1,10 +1,10 @@
 const initialState = {
     error: null,
     loading: true,
-    test: 8,
     currentSlideImage: 0,
     obj: null,
-    slides: []
+    slides: [],
+    journalState: 0
 };
 
 const manipulation = (state = initialState, action) => {
@@ -41,6 +41,11 @@ const manipulation = (state = initialState, action) => {
                 slides: [],
                 error: action.payload,
                 loading: false
+            }
+        case "SET_JOUNAL_STATE":
+            return {
+                ...state,
+                journalState: action.payload,
             }
 
         default:
