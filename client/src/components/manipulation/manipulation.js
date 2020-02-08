@@ -9,14 +9,15 @@ import Slider from './slider';
 import InputFile from './input-file';
 import RootTeeth from './root-teeth';
 import MilkTeeth from './milk-teeth';
-import { fetchImages, setJournalState } from '../../actions'
+import { fetchImages } from '../../actions'
+import { putJournal } from '../../services/server-service'
 
 
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
 import './manipulation.css';
 
 
-const Manipulation = ({ obj, history, fetchImages, slides, setJourState, jourState }) => {
+const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
 
     const [id] = useState(obj.id);
     // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
@@ -26,15 +27,17 @@ const Manipulation = ({ obj, history, fetchImages, slides, setJourState, jourSta
     const [birth_day] = useState(obj.birth_day);
     const [address] = useState(obj.address);
     const [tel] = useState(obj.tel);
-    // const [note, setNote] = useState(obj.note);
-    // const [date_created, setDate_created] = useState(obj.date_created);
-    // const [date_edit, setDate_edit] = useState(obj.date_edit);
-    // const [date_done, setDate_done] = useState(obj.date_done);
+    const [note] = useState(obj.note);
     const [hbs] = useState(obj.hbs);
     const [hcv] = useState(obj.hcv);
     const [hiv] = useState(obj.hiv);
-    // const [is_deciduous, setis_Deciduous] = useState(obj.is_deciduous);
-    // const [state, setState] = useState(obj.state);
+
+    const [date_done, setDate_done] = useState(obj.date_done);
+    const [journState, setState] = useState(obj.state);
+
+    const date=new Date();
+    const currentDate= `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+
     const hbsClass = `test-div${hbs}`
     const hcvClass = `test-div${hcv}`
     const hivClass = `test-div${hiv}`
@@ -65,43 +68,70 @@ const Manipulation = ({ obj, history, fetchImages, slides, setJourState, jourSta
         fetchImages(id)
     }, [id])
 
-    const onBtnClick = () => {
-        console.log(jourState)
-        // history.goBack();
+
+    const onOkBtnClick = () => {
+        const data = {
+            query:'UPDATE `journal` SET `state` = ?,`is_deciduous` = ?,`note` = ?,`date_done` = ? WHERE `id` = ? ;',
+            params: [journState, isDeciduous, document.getElementById('txtArea').value , date_done, id]
+        };
+        putJournal(data)
+            .then(res => res.json())
+            .then((res) => alert(res.status))
+            .catch((err) => {
+                console.error(err);
+                alert(`ошибка при обновление`);
+                return;
+            })
+
+
+        history.goBack();
     }
     const inputChange = (e) => {
-        setJourState(e.target.value);
+        if (e.target.value === '2') {                      
+            setDate_done(`${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`);
+        }
+        else(setDate_done(null))
+        setState(e.target.value);
+    };
+    const onCacelBtnClick = () => {
+        history.goBack();
     }
 
+
+
     return (
+
         <div className='root-div'>
+
             <div className='pat-info-div'>
                 <div className="left-part">
-                    <table class="main-table">
-                        <tr>
-                            <td>Ф. И. О.</td>
-                            <td>{pat_fio}</td>
-                        </tr>
-                        <tr>
-                            <td>Дата рождения</td>
-                            <td>{birth_day}</td>
-                        </tr>
-                        <tr>
-                            <td>Адрес</td>
-                            <td>{address}</td>
-                        </tr>
-                        <tr>
-                            <td>Телефон</td>
-                            <td>{tel}</td>
-                        </tr>
-                        <tr>
-                            <td>Анализы</td>
-                            <td>
-                                <div className={hbsClass}>hbs</div>
-                                <div className={hcvClass}>hcv</div>
-                                <div className={hivClass}>hiv</div>
-                            </td>
-                        </tr>
+                    <table className="main-table">
+                        <tbody>
+                            <tr>
+                                <td>Ф. И. О.</td>
+                                <td>{pat_fio}</td>
+                            </tr>
+                            <tr>
+                                <td>Дата рождения</td>
+                                <td>{birth_day}</td>
+                            </tr>
+                            <tr>
+                                <td>Адрес</td>
+                                <td>{address}</td>
+                            </tr>
+                            <tr>
+                                <td>Телефон</td>
+                                <td>{tel}</td>
+                            </tr>
+                            <tr>
+                                <td>Анализы</td>
+                                <td>
+                                    <div className={hbsClass}>hbs</div>
+                                    <div className={hcvClass}>hcv</div>
+                                    <div className={hivClass}>hiv</div>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
 
@@ -122,63 +152,64 @@ const Manipulation = ({ obj, history, fetchImages, slides, setJourState, jourSta
             <div className='div-for-params'>
                 <div className="div-block div-table-diagnoses">
                     <label>Диагнозы</label>
-                    <Diagnoses />
+                    <Diagnoses title={'Диагноз: '} />
                 </div>
                 <div className="div-block div-root-teeth">
                     <label>Коренные зубы</label>
-                    <RootTeeth />
+                    <RootTeeth title={'Коренной зуб: '} />
                 </div>
                 <div className="div-block div-milk-teeth">
                     <label>Молочные зубы</label>
-                    <MilkTeeth />
+                    <MilkTeeth title={'Молочный зуб: '} />
                 </div>
             </div>
             <div className='div-for-params'>
                 <div className="div-block div-table-diagnoses">
                     <label>Пломбировочные материалы</label>
-                    <Materials />
+                    <Materials title={'Пломбировочные материалы: '} />
                 </div>
                 <div className="div-block div-milk-teeth-tbl">
                     <label>Обезболивание</label>
-                    <TempTable dataRows={anaesthetization} />
+                    <TempTable dataRows={anaesthetization} title={'Обезболивание: '} />
                 </div>
                 <div className="div-block div-milk-teeth-tbl">
-                    <label>Анестезия</label>
-                    <TempTable dataRows={anaesthesia} />
+                    <label>Анестетик</label>
+                    <TempTable dataRows={anaesthesia} title={'Анестетик: '} />
                 </div>
             </div>
-            <div class="footer">
-                <div class="footer-left">
-                    <div class="txt-area-block">
-                        <textarea> dskjfasdjfadsklfskjlad
-                            dkfljasdk;jladsk;gj;dfkg kdfsjgkdfsgkdfshgjkldfshkj
-                            dfskjghdfskjlghldfskjghdfskjl
-                            fdklgjdsfk;lgjdfsk;lgjdfskjgdfsk;lgjk;l
-                    </textarea>
+            <div className="footer">
+                <div className="footer-left">
+                    <label>Примечания</label>
+                    <div className="txt-area-block">
+                        <textarea
+                            id='txtArea'
+                            defaultValue={note+currentDate+'\r\n'}
+                        >
+                        </textarea>
                     </div>
                 </div>
-                <div class="footer-right">
+                <div className="footer-right">
                     <div className="status-wrapper">
                         <label>
-                            <input onChange={inputChange} name="r1" type="radio" value="0" />
+                            <input onChange={inputChange} name="r1" type="radio" value="0" defaultChecked={(obj.state === '0')} />
                             В очереди
                     </label>
                         <label>
-                            <input onChange={inputChange} name="r1" type="radio" value="1" />
+                            <input onChange={inputChange} name="r1" type="radio" value="1" defaultChecked={(obj.state === '1')} />
                             Рассматривается
                     </label>
                         <label>
-                            <input onChange={inputChange} name="r1" type="radio" value="2" />
+                            <input onChange={inputChange} name="r1" type="radio" value="2" defaultChecked={(obj.state === '2')} />
                             Выполнено
                     </label>
                         <label>
-                            <input onChange={inputChange} name="r1" type="radio" value="3" />
+                            <input onChange={inputChange} name="r1" type="radio" value="3" defaultChecked={(obj.state === '3')} />
                             Отменено
                     </label>
                     </div>
                     <div className="action-buttons">
-                        <button onClick={onBtnClick}>Сохранить</button>
-                        <button onClick={onBtnClick}>Отмена</button>
+                        <button onClick={onOkBtnClick}>Сохранить</button>
+                        <button onClick={onCacelBtnClick}>Отмена</button>
                     </div>
                 </div>
             </div>
@@ -191,12 +222,11 @@ const mapStateToProps = (state) => {
     return {
         obj: state.manipulation.obj,
         slides: state.manipulation.slides,
-        jourState: state.manipulation.journalState,
+        isDeciduous: state.manipulation.is_deciduous,
     }
 }
 const mapDispatchToProps = {
     fetchImages: fetchImages,
-    setJourState: setJournalState
 }
 
 

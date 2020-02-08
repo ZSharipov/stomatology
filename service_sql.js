@@ -29,6 +29,17 @@ const db = mysql.createPool({
 // db.on('error', function() { mySql() });
 
 
+app.get('/diagnoses', (req, res) => {
+    db.query('SELECT * FROM diagnoses', (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/doctors', (req, res) => {
     db.query('SELECT * FROM doctors', (err, result) => {
         if (err) {
@@ -63,7 +74,7 @@ app.get('/image/:id', function(req, res) {
 });
 
 app.get('/journal/:id', function(req, res) {
-    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
+    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,IFNULL(j.note,'') AS note,   j.date_created, j.date_edit, j.date_done, 
     p.hbs, p.hcv, p.hiv,if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous, j.state as state
     FROM journal j 
     LEFT JOIN doctors d on j.id_doctor=d.id
@@ -103,6 +114,11 @@ app.get('/journal', function(req, res) {
         res.send(result);
     });
 });
+
+
+
+
+//POST's
 app.post('/journal', function(req, res) {
     db.query(`INSERT INTO journal set ?`, req.body, (err) => {
         if (err) {
@@ -111,7 +127,7 @@ app.post('/journal', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully inserted!',
+            status: 'Запись успешно создана!',
         });
     });
 });
@@ -123,7 +139,7 @@ app.post('/image', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully inserted!',
+            status: 'Запись успешно создана!',
         });
     });
 });
@@ -135,23 +151,7 @@ app.post('/patients', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully inserted!',
-        });
-    });
-});
-
-app.put('/patients', function(req, res) {
-    // db.query('UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?', 
-    // [req.body.fio, "2020/1/1", req.body.address, req.body.tel, req.body.hbs, req.body.hcv, req.body.hiv, req.body.id],
-    db.query(req.body.query, req.body.params, (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            res.send("возникла ошибка при обновление");
-            return
-        }
-
-        res.send({
-            status: 'Data successfully updated!',
+            status: 'Запись успешно создана!',
         });
     });
 });
@@ -164,10 +164,90 @@ app.post('/doctors', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully inserted!',
+            status: 'Запись успешно создана!',
         });
     });
 });
+
+app.post('/diagnoses', function(req, res) {
+    db.query(`INSERT INTO diagnoses set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Запись успешно создана!',
+        });
+    });
+});
+
+
+
+//PUT's
+
+app.put('/journal', function(req, res) {
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
+app.put('/doctors', function(req, res) {
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
+
+app.put('/diagnoses', function(req, res) {
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
+
+
+app.put('/patients', function(req, res) {
+    // db.query('UPDATE `patients` SET `fio` = ?, `birth_day`=?, `address` = ?,`tel` = ?,`hbs` = ?, `hcv` =?, `hiv` = ? WHERE `id` = ?', 
+    // [req.body.fio, "2020/1/1", req.body.address, req.body.tel, req.body.hbs, req.body.hcv, req.body.hiv, req.body.id],
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
+
+
+
+//DELETE's
+
 app.delete('/doctors', function(req, res) {
     db.query('DELETE FROM doctors  WHERE `id` = ?', req.body, (err) => {
         if (err) {
@@ -176,7 +256,20 @@ app.delete('/doctors', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully deleted!',
+            status: 'Запись успешно удалена!',
+        });
+    });
+});
+
+app.delete('/diagnoses', function(req, res) {
+    db.query('DELETE FROM diagnoses  WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Запись успешно удалена!',
         });
     });
 });
@@ -188,12 +281,11 @@ app.delete('/patients', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully deleted!',
+            status: 'Запись успешно удалена!',
         });
     });
 });
 app.delete('/image', function(req, res) {
-    console.log(req.body)
 
     db.query('DELETE FROM image_url WHERE `url` = ?', req.body, (err) => {
         if (err) {
@@ -202,7 +294,7 @@ app.delete('/image', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully deleted!',
+            status: 'Запись успешно удалена!',
         });
     });
 });
@@ -214,24 +306,11 @@ app.delete('/journal', function(req, res) {
             return
         }
         res.send({
-            status: 'Data successfully deleted!',
+            status: 'Запись успешно удалена!',
         });
     });
 });
 
-app.put('/doctors', function(req, res) {
-    db.query(req.body.query, req.body.params, (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            res.send("возникла ошибка при обновление");
-            return
-        }
-
-        res.send({
-            status: 'Data successfully updated!',
-        });
-    });
-});
 
 
 app.listen(3210, () => {

@@ -33,7 +33,7 @@ const filterRowMessages = {
 };
 
 
-const TempTable = ({dataRows}) => {  
+const TempTable = ({dataRows, title}) => {  
     
 
     const [defaultColumnWidths] = useState([        
@@ -54,7 +54,10 @@ const TempTable = ({dataRows}) => {
         <Table.Row
             {...restProps}
             // eslint-disable-next-line no-alert
-            onDoubleClick={() => alert(JSON.stringify(row))}
+            onDoubleClick={() =>{
+               const txt= document.getElementById('txtArea').value;
+               document.getElementById('txtArea').value=(txt+title+row['text']+"\r\n")
+            } }
         />
     );
 

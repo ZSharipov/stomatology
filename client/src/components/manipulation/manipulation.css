@@ -163,7 +163,8 @@ body {
     vertical-align: top;
 }
 
-.div-for-params .div-block label {
+.div-for-params .div-block label,
+.footer-left label {
     font-size: 18px;
     font-weight: 600;
     color: #333;

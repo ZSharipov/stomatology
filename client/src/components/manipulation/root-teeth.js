@@ -1,13 +1,26 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {isDeciduous} from '../../actions'
 
-const RootTeeth = () => {
+
+
+const RootTeeth = ({ title, setIsDeciduous }) => {
+
+    const onDoubleClickBtn=(e) => {
+        const txt = document.getElementById('txtArea').value;
+        document.getElementById('txtArea').value =
+            (txt + title + e.target.innerText + "\r\n");
+        setIsDeciduous(0);    
+    }
+    
     const createDiv = (firstSybol) => {
         let btns = []
         for (let index = 1; index < 9; index++) {
             btns.push(
                 <button
-                style={{padding:'4px', width:'32px'}}
+                    style={{ padding: '4px', width: '32px' }}
                     key={index}
+                    onDoubleClick={onDoubleClickBtn}
                     className="my-btn">
                     {firstSybol}{index}
                 </button>);
@@ -35,5 +48,7 @@ const RootTeeth = () => {
     )
 
 }
-
-export default RootTeeth;
+const mapDispatchToProps = {
+    setIsDeciduous: isDeciduous,
+}
+export default connect(null,mapDispatchToProps)(RootTeeth);

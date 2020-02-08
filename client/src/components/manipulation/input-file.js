@@ -42,13 +42,18 @@ class InputFile extends Component {
 
     }
     onImgDelete = () => {
+
+
         const { slides, currentSlideImage, id, fetchImages } = this.props
         if (!slides || slides.length === 0)
+            return
+        const confirmDel = window.confirm('Удалить данный снимок?');
+        if (!confirmDel)
             return
         const deletingFile = slides[currentSlideImage].url;
         delImgDb([deletingFile])
             .then(() => {
-                delImgFs(id,deletingFile)
+                delImgFs(id, deletingFile)
                     .then((res) => {
                         fetchImages(id)
                         console.log(res)

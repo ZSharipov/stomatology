@@ -4,12 +4,17 @@ const initialState = {
     currentSlideImage: 0,
     obj: null,
     slides: [],
-    journalState: 0
+    is_deciduous: 0,
 };
 
 const manipulation = (state = initialState, action) => {
 
     switch (action.type) {
+        case "IS_DECIDUOUS":
+            return {
+                ...state,
+                is_deciduous: action.payload,
+            }
         case "OPEN_PATIENT":
             return {
                 ...state,
@@ -25,7 +30,6 @@ const manipulation = (state = initialState, action) => {
                 ...state,
                 error: null,
                 loading: true,
-
             }
         case "FETCH_IMAGES_SUCCESS":
             return {
@@ -41,11 +45,6 @@ const manipulation = (state = initialState, action) => {
                 slides: [],
                 error: action.payload,
                 loading: false
-            }
-        case "SET_JOUNAL_STATE":
-            return {
-                ...state,
-                journalState: action.payload,
             }
 
         default:

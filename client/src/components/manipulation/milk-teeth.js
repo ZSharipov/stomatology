@@ -1,6 +1,18 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {isDeciduous} from '../../actions'
 
-const MilkTeeth = () => {
+
+const MilkTeeth = ({ title, setIsDeciduous }) => {
+
+    const onDoubleClickBtn=(e) => {
+        const txt = document.getElementById('txtArea').value;
+        document.getElementById('txtArea').value =
+            (txt + title + e.target.innerText + "\r\n");
+        setIsDeciduous(1);
+    
+    };
+    
     const createDiv = (firstSybol) => {
         let btns = []
         const arr = ['I', 'II', 'III', 'IV', 'V'];
@@ -9,7 +21,9 @@ const MilkTeeth = () => {
                 <button
                     style={{ padding: '4px', width: '50px' }}
                     key={index}
+                    onDoubleClick={onDoubleClickBtn}
                     className="my-btn">
+
                     {firstSybol}({arr[index]})
                     </button>);
         }
@@ -30,13 +44,10 @@ const MilkTeeth = () => {
             <div>
                 {createDiv(4)}
             </div>
-
-
-
         </div>
     )
-
-
-
 }
-export default MilkTeeth;
+const mapDispatchToProps = {
+    setIsDeciduous: isDeciduous,
+}
+export default connect(null,mapDispatchToProps)(MilkTeeth);

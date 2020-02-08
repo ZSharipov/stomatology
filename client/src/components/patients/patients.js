@@ -73,6 +73,9 @@ const Patients = ({
     if (isType === 't') {
         editColumnMessages.deleteCommand = "анализы"
     }
+    if (isType === 'a') {
+        editColumnMessages.deleteCommand = "Удалить"
+    }
     const [patientId, setPatientId] = useState('');
     const [patientFio, setPatientFio] = useState('');
 
@@ -198,6 +201,9 @@ const Patients = ({
                 const patient = rows.find((row) => {
                     return row.id === deleted[0];
                 })
+                const confirmDel = window.confirm('Удалить запись?');
+                if (!confirmDel)
+                    return
                 delPatients([patient.id])
                     .then(res => res.json())
                     .then((res) => alert(res.status))
@@ -265,39 +271,30 @@ const Patients = ({
                 columns={columns}
                 getRowId={getRowId} >
                 <SortingState sorting={sorting}
-                    onSortingChange={setSorting}
-                /> <FilteringState defaultFilters={
-                    []}
-                /> <EditingState onCommitChanges={commitChanges}
-                /> <IntegratedSorting />
+                    onSortingChange={setSorting} />
+                <FilteringState defaultFilters={[]} />
+                <EditingState onCommitChanges={commitChanges} />
+                <IntegratedSorting />
                 <IntegratedFiltering />
-                <PagingState defaultCurrentPage={0}
-                    defaultPageSize={5}
-                /> <IntegratedPaging />
-                <Table messages={tableMessages}
-                />
-
-
-
-                <TableColumnResizing defaultColumnWidths={defaultColumnWidths}
-                /> <TableFilterRow messages={filterRowMessages}
-                /> <TableHeaderRow showSortingControls />
-                <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames}
-                />
-
+                <PagingState
+                    defaultCurrentPage={0}
+                    defaultPageSize={5} />
+                <IntegratedPaging />
+                <Table messages={tableMessages} />
+                <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+                <TableFilterRow messages={filterRowMessages} />
+                <TableHeaderRow showSortingControls />
+                <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames} />
                 <TableEditRow />
                 <TableEditColumn showAddCommand={isControl}
                     showEditCommand={isControl}
                     showDeleteCommand width={colWidth}
-                    messages={editColumnMessages}
-                />
-
-
-
+                    messages={editColumnMessages} />
                 <PagingPanel pageSizes={
                     [5, 20, 100, 500]}
-                    messages={pagingPanelMessages}
-                /> </Grid> </div>
+                    messages={pagingPanelMessages} />
+            </Grid>
+        </div>
     );
 };
 

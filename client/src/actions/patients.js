@@ -4,7 +4,6 @@ const patientsRequested = () => {
     return {
         type: "FETCH_PATIENTS_REQUEST"
     }
-
 };
 
 const patientsLoaded = (newPatients) => {

@@ -160,6 +160,9 @@ const Doctors = ({ defaultHiddenColumnNames = ['date_created', 'date_edit'], doc
             const doc = rows.find((row) => {
                 return row.id === deleted[0];
             })
+            const confirmDel = window.confirm('Удалить запись?');
+            if (!confirmDel)
+                return
             delDoctors([doc.id])
                 .then(res => res.json())
                 .then((res) => alert(res.status))

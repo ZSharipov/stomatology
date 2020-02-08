@@ -33,7 +33,7 @@ const filterRowMessages = {
 };
 
 
-const Materials = ({ defaultHiddenColumnNames = ['code'] }) => {
+const Materials = ({ defaultHiddenColumnNames = ['code'], title }) => {
 
     const materials = [
         { id: 1, code: '', text: 'Эндодонтические' },
@@ -76,7 +76,7 @@ const Materials = ({ defaultHiddenColumnNames = ['code'] }) => {
 
 
 
-    const TableRow = ({ row, ...restProps }) =>{
+    const TableRow = ({ row, ...restProps }) => {
 
         const cellValue = row['code'];//for RedBackgraund
         let cellStyle;
@@ -84,18 +84,25 @@ const Materials = ({ defaultHiddenColumnNames = ['code'] }) => {
             cellStyle = { backgroundColor: '#20f13826', fontWeight: 'bold' }
         }
 
-        return(
-        <Table.Row
-            {...restProps}
-            onDoubleClick={() => alert(JSON.stringify(row))}
-            style={cellStyle}//for RedBackgraund
-        />
-    );}
+        return (
+            <Table.Row
+                {...restProps}
+                onDoubleClick={() => {
+                    if (row['code'] === '')
+                        return
+                    const txt = document.getElementById('txtArea').value;
+                    document.getElementById('txtArea').value = 
+                    (txt + title+ row['code']+'>' + row['text'] + "\r\n")
+                }}
+                style={cellStyle}//for RedBackgraund
+            />
+        );
+    }
 
     const [tableColumnExtensions] = useState([
         { columnName: 'text', wordWrapEnabled: true },
     ]);
-   
+
     return (
 
         <div className="div-for-rows" >

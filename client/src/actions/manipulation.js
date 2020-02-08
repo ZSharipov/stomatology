@@ -1,5 +1,11 @@
 import { getImages } from '../services/server-service'
 
+const isDeciduous = (teeth) => {
+    return {
+        type: "IS_DECIDUOUS",
+        payload: teeth,
+    }
+}
 const openPatient = (obj) => {
     return {
         type: "OPEN_PATIENT",
@@ -10,12 +16,6 @@ const setCurImage = (img) => {
     return {
         type: "SET_CUR_IMAGES",
         payload: img,
-    }
-}
-const setJournalState = (jurnState) => {
-    return {
-        type: "SET_JOUNAL_STATE",
-        payload: jurnState,
     }
 }
 
@@ -49,5 +49,5 @@ export {
     fetchImages,
     openPatient,
     setCurImage,
-    setJournalState,
+    isDeciduous,
 }

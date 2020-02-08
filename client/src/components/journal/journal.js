@@ -73,8 +73,8 @@ const Journal = ({
         { columnName: 'id_doctor', width: 0 },
         { columnName: 'doc_fio', width: 200 },
         { columnName: 'id_patient', width: 0 },
-        { columnName: 'pat_fio', width: 250 },
-        { columnName: 'birth_day', width: 100 },
+        { columnName: 'pat_fio', width: 300 },
+        { columnName: 'birth_day', width: 150 },
         { columnName: 'address', width: 100 },
         { columnName: 'tel', width: 100 },
         { columnName: 'state', width: 100 },
@@ -172,6 +172,10 @@ const Journal = ({
             if (isType === 'a') {
                 const deletedSet = new Set(deleted);
                 changedRows = rows.filter(row => !deletedSet.has(row.id));
+
+                const confirmDel = window.confirm('Удалить запись?');
+                if (!confirmDel)
+                    return
 
                 delJournal([journ.id])
                     .then(res => res.json())
