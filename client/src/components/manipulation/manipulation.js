@@ -17,7 +17,7 @@ import { putJournal } from '../../services/server-service'
 import './manipulation.css';
 
 
-const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
+const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthesia, anaesthetization, materials }) => {
 
     const [id] = useState(obj.id);
     // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
@@ -35,33 +35,33 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
     const [date_done, setDate_done] = useState(obj.date_done);
     const [journState, setState] = useState(obj.state);
 
-    const date=new Date();
-    const currentDate= `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+    const date = new Date();
+    const currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     const hbsClass = `test-div${hbs}`
     const hcvClass = `test-div${hcv}`
     const hivClass = `test-div${hiv}`
 
-    const anaesthesia = [
-        { id: 1, text: 'Лидокаин' },
-        { id: 2, text: 'Новокаин' },
-        { id: 3, text: 'Артикаин' },
-        { id: 4, text: 'Ультракаин' },
-        { id: 5, text: 'Тримекаин' },
-        { id: 6, text: 'Ксилокаин' },
-        { id: 7, text: 'Мепивакаин' },
-        { id: 8, text: 'Септанест' },
-        { id: 9, text: 'Убестезин' },
-    ];
-    const anaesthetization = [
-        { id: 1, text: 'Аппликационная' },
-        { id: 2, text: 'Инфильтрационная' },
-        { id: 3, text: 'Мандибулярная' },
-        { id: 4, text: 'Торусальная' },
-        { id: 5, text: 'Туберальная' },
-        { id: 6, text: 'Резцовая' },
-        { id: 7, text: 'Небная' },
-    ];
+    // const anaesthesia = [
+    //     { id: 1, text: 'Лидокаин' },
+    //     { id: 2, text: 'Новокаин' },
+    //     { id: 3, text: 'Артикаин' },
+    //     { id: 4, text: 'Ультракаин' },
+    //     { id: 5, text: 'Тримекаин' },
+    //     { id: 6, text: 'Ксилокаин' },
+    //     { id: 7, text: 'Мепивакаин' },
+    //     { id: 8, text: 'Септанест' },
+    //     { id: 9, text: 'Убестезин' },
+    // ];
+    // const anaesthetization = [
+    //     { id: 1, text: 'Аппликационная' },
+    //     { id: 2, text: 'Инфильтрационная' },
+    //     { id: 3, text: 'Мандибулярная' },
+    //     { id: 4, text: 'Торусальная' },
+    //     { id: 5, text: 'Туберальная' },
+    //     { id: 6, text: 'Резцовая' },
+    //     { id: 7, text: 'Небная' },
+    // ];
 
 
     useEffect(() => {
@@ -71,8 +71,8 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
 
     const onOkBtnClick = () => {
         const data = {
-            query:'UPDATE `journal` SET `state` = ?,`is_deciduous` = ?,`note` = ?,`date_done` = ? WHERE `id` = ? ;',
-            params: [journState, isDeciduous, document.getElementById('txtArea').value , date_done, id]
+            query: 'UPDATE `journal` SET `state` = ?,`is_deciduous` = ?,`note` = ?,`date_done` = ? WHERE `id` = ? ;',
+            params: [journState, isDeciduous, document.getElementById('txtArea').value, date_done, id]
         };
         putJournal(data)
             .then(res => res.json())
@@ -87,10 +87,10 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
         history.goBack();
     }
     const inputChange = (e) => {
-        if (e.target.value === '2') {                      
-            setDate_done(`${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`);
+        if (e.target.value === '2') {
+            setDate_done(`${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
         }
-        else(setDate_done(null))
+        else (setDate_done(null))
         setState(e.target.value);
     };
     const onCacelBtnClick = () => {
@@ -166,7 +166,7 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
             <div className='div-for-params'>
                 <div className="div-block div-table-diagnoses">
                     <label>Пломбировочные материалы</label>
-                    <Materials title={'Пломбировочные материалы: '} />
+                    <Materials title={'Пломбировочные материалы: '} materials={materials} />
                 </div>
                 <div className="div-block div-milk-teeth-tbl">
                     <label>Обезболивание</label>
@@ -183,7 +183,7 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous}) => {
                     <div className="txt-area-block">
                         <textarea
                             id='txtArea'
-                            defaultValue={note+currentDate+'\r\n'}
+                            defaultValue={note + currentDate + '\r\n'}
                         >
                         </textarea>
                     </div>
@@ -223,6 +223,9 @@ const mapStateToProps = (state) => {
         obj: state.manipulation.obj,
         slides: state.manipulation.slides,
         isDeciduous: state.manipulation.is_deciduous,
+        anaesthesia: state.tables.anaesthesia,
+        anaesthetization: state.tables.anaesthetization,
+        materials: state.tables.materials,
     }
 }
 const mapDispatchToProps = {

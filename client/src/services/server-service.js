@@ -2,6 +2,15 @@ const url = 'http://localhost:3210/'
 
 //GET's
 
+const getAnaesthesia = _ =>
+    fetch(`${url}anaesthesia`)
+
+const getAnaesthetization = _ =>
+    fetch(`${url}anaesthetization`)
+
+const getMaterials = _ =>
+    fetch(`${url}materials`)
+
 const getDoctors = _ =>
     fetch(`${url}doctors`)
 
@@ -22,6 +31,25 @@ const getAllJournal = () =>
 
 
 //POST's
+
+const postAnaesthetization = (data) =>
+    fetch(`${url}anaesthetization`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+const postAnaesthesia = (data) =>
+    fetch(`${url}anaesthesia`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 const postDiagnoses = (data) =>
     fetch(`${url}diagnoses`, {
         method: 'POST',
@@ -73,6 +101,25 @@ const postDoctors = (data) =>
 
 
 //PUT's
+
+const putAnaesthetization = (data) =>
+    fetch(`${url}anaesthetization`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+const putAnaesthesia = (data) =>
+    fetch(`${url}anaesthesia`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 const putDiagnoses = (data) =>
     fetch(`${url}diagnoses`, {
         method: 'PUT',
@@ -117,6 +164,24 @@ const putDoctors = (data) =>
 
 //DELETE's 
 
+const delAnaesthetization = (data) =>
+    fetch(`${url}anaesthetization`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+const delAnaesthesia = (data) =>
+    fetch(`${url}anaesthesia`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 const delDiagnoses = (data) =>
     fetch(`${url}diagnoses`, {
         method: 'DELETE',
@@ -180,19 +245,28 @@ const addImg = ({ body, id, myFile }) =>
 
 
 export {
+    getAnaesthesia,
+    getAnaesthetization,
+    getMaterials,
     getDoctors,
     getPatients,
     getDiagnoses,
     getJournal,
     getAllJournal,
+    postAnaesthetization,
+    postAnaesthesia,
     postJournal,
     postPatients,
     postDoctors,
     postDiagnoses,
+    putAnaesthetization,
+    putAnaesthesia,
     putDoctors,
     putPatients,
     putDiagnoses,
     putJournal,
+    delAnaesthetization,
+    delAnaesthesia,
     delDoctors,
     delPatients,
     delJournal,

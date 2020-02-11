@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
 import './operation.css';
 import Journal from '../journal';
-import { authentication } from '../../actions'
+import { authentication, fetchTables } from '../../actions'
 
-const Operation = ({ isType, fio, unauthentication }) => {
+const Operation = ({ isType, fio, unauthentication, fetchTables }) => {
 
     if (isType !== 'd')
         return <Redirect to='/authentication' />
@@ -15,10 +15,11 @@ const Operation = ({ isType, fio, unauthentication }) => {
     const onLogOutBtn = () => {
         unauthentication([], '')
     }
+    fetchTables();
     return (
         <div className="div-wrapper">
             <div id="div1" className='div-for-label'>
-               
+
                 <h2>{fio}</h2>
                 <button onClick={onLogOutBtn} >Выход</button>
             </div>
@@ -64,6 +65,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
     unauthentication: authentication,
+    fetchTables: fetchTables,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Operation);

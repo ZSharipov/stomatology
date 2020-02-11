@@ -59,9 +59,13 @@ app.post('/file/del/:id/:myFile', function(req, res) {
             // other errors, e.g. maybe we don't have enough permission
             res.send("Error occurred while trying to remove file");
         } else {
+            if (fs.readdirSync(`./client/build/images/${req.params.id}`).length === 0) {
+                fs.rmdirSync(`./client/build/images/${req.params.id}`)
+            }
             res.send('removed');
         }
     });
+
 });
 
 app.listen(3211, function() {

@@ -16,30 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `image_url`
+-- Table structure for table `anaesthesia`
 --
 
-DROP TABLE IF EXISTS `image_url`;
+DROP TABLE IF EXISTS `anaesthesia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `image_url` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `url` varchar(40) NOT NULL,
-  `id_journal` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `image_fk_idx` (`id_journal`),
-  CONSTRAINT `image_fk` FOREIGN KEY (`id_journal`) REFERENCES `journal` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `anaesthesia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `image_url`
+-- Dumping data for table `anaesthesia`
 --
 
-LOCK TABLES `image_url` WRITE;
-/*!40000 ALTER TABLE `image_url` DISABLE KEYS */;
-INSERT INTO `image_url` VALUES (5,'1580117943516.jpg',50);
-/*!40000 ALTER TABLE `image_url` ENABLE KEYS */;
+LOCK TABLES `anaesthesia` WRITE;
+/*!40000 ALTER TABLE `anaesthesia` DISABLE KEYS */;
+INSERT INTO `anaesthesia` VALUES (1,'Лидокаин'),(2,'Новокаин'),(3,'Артикаин'),(4,'Ультракаин'),(5,'Тримекаин'),(6,'Ксилокаин'),(7,'Мепивакаин'),(8,'Септанест'),(9,'Убестезин');
+/*!40000 ALTER TABLE `anaesthesia` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-11 22:07:18
+-- Dump completed on 2020-02-11 22:07:17

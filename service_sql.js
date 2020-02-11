@@ -29,6 +29,39 @@ const db = mysql.createPool({
 // db.on('error', function() { mySql() });
 
 
+app.get('/anaesthesia', (req, res) => {
+    db.query('SELECT * FROM anaesthesia', (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        } else {
+            res.send(result);
+        }
+    });
+});
+app.get('/anaesthetization', (req, res) => {
+    db.query('SELECT * FROM anaesthetization', (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        } else {
+            res.send(result);
+        }
+    });
+});
+app.get('/materials', (req, res) => {
+    db.query('SELECT * FROM materials', (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/diagnoses', (req, res) => {
     db.query('SELECT * FROM diagnoses', (err, result) => {
         if (err) {
@@ -78,7 +111,7 @@ app.get('/journal/:id', function(req, res) {
     p.hbs, p.hcv, p.hiv,if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous, j.state as state
     FROM journal j 
     LEFT JOIN doctors d on j.id_doctor=d.id
-    LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=?`, [req.params.id], (err, result) => {
+    LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=? order by state, date_created`, [req.params.id], (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");
@@ -105,7 +138,7 @@ app.get('/journal', function(req, res) {
         END AS state
     FROM journal j 
     LEFT JOIN doctors d on j.id_doctor=d.id
-    LEFT JOIN patients  p on j.id_patient = p.id `, (err, result) => {
+    LEFT JOIN patients  p on j.id_patient = p.id order by d.fio,state, date_created`, (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");
@@ -119,6 +152,31 @@ app.get('/journal', function(req, res) {
 
 
 //POST's
+
+app.post('/anaesthetization', function(req, res) {
+    db.query(`INSERT INTO anaesthetization set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Запись успешно создана!',
+        });
+    });
+});
+app.post('/anaesthesia', function(req, res) {
+    db.query(`INSERT INTO anaesthesia set ?`, req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при вставке");
+            return
+        }
+        res.send({
+            status: 'Запись успешно создана!',
+        });
+    });
+});
 app.post('/journal', function(req, res) {
     db.query(`INSERT INTO journal set ?`, req.body, (err) => {
         if (err) {
@@ -186,6 +244,32 @@ app.post('/diagnoses', function(req, res) {
 
 //PUT's
 
+app.put('/anaesthetization', function(req, res) {
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
+app.put('/anaesthesia', function(req, res) {
+    db.query(req.body.query, req.body.params, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при обновление");
+            return
+        }
+
+        res.send({
+            status: 'Запись успешно обновлена!',
+        });
+    });
+});
 app.put('/journal', function(req, res) {
     db.query(req.body.query, req.body.params, (err, results, fields) => {
         if (err) {
@@ -248,6 +332,30 @@ app.put('/patients', function(req, res) {
 
 //DELETE's
 
+app.delete('/anaesthetization', function(req, res) {
+    db.query('DELETE FROM anaesthetization  WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Запись успешно удалена!',
+        });
+    });
+});
+app.delete('/anaesthesia', function(req, res) {
+    db.query('DELETE FROM anaesthesia  WHERE `id` = ?', req.body, (err) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка при удаление");
+            return
+        }
+        res.send({
+            status: 'Запись успешно удалена!',
+        });
+    });
+});
 app.delete('/doctors', function(req, res) {
     db.query('DELETE FROM doctors  WHERE `id` = ?', req.body, (err) => {
         if (err) {

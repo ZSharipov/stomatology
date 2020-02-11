@@ -16,30 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `image_url`
+-- Table structure for table `materials`
 --
 
-DROP TABLE IF EXISTS `image_url`;
+DROP TABLE IF EXISTS `materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `image_url` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `url` varchar(40) NOT NULL,
-  `id_journal` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `image_fk_idx` (`id_journal`),
-  CONSTRAINT `image_fk` FOREIGN KEY (`id_journal`) REFERENCES `journal` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `materials` (
+  `id` int(10) unsigned NOT NULL,
+  `code` varchar(40) NOT NULL DEFAULT '',
+  `text` varchar(40) NOT NULL,
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `image_url`
+-- Dumping data for table `materials`
 --
 
-LOCK TABLES `image_url` WRITE;
-/*!40000 ALTER TABLE `image_url` DISABLE KEYS */;
-INSERT INTO `image_url` VALUES (5,'1580117943516.jpg',50);
-/*!40000 ALTER TABLE `image_url` ENABLE KEYS */;
+LOCK TABLES `materials` WRITE;
+/*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+INSERT INTO `materials` VALUES (1,'','Эндодонтические'),(2,'Эндодонтические','Эндометазон'),(3,'Эндодонтические','Теэдент'),(4,'Эндодонтические','Эндофил'),(5,'Эндодонтические','Эодент'),(6,'Эндодонтические','Резодент'),(7,'Эндодонтические','Форедент'),(8,'Эндодонтические','Интрадонт'),(9,'Эндодонтические','Цинк-Эвгеноловая паста'),(10,'Эндодонтические','Эвгедент'),(100,'','Прокладочные'),(101,'Прокладочные','Уницем'),(102,'Прокладочные','Унифас'),(200,'','Постоянные'),(201,'Постоянные','Белоцин'),(202,'Постоянные','Белодонт'),(203,'Постоянные','Композит'),(204,'Постоянные','Мегафил');
+/*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

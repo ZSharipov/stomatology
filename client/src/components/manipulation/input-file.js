@@ -29,7 +29,6 @@ class InputFile extends Component {
                     }
                     ))
             .catch((err) => console.error(err))
-
     }
 
     onSubmitForm = (e) => {
@@ -56,7 +55,6 @@ class InputFile extends Component {
                 delImgFs(id, deletingFile)
                     .then((res) => {
                         fetchImages(id)
-                        console.log(res)
                     })
                     .catch((err) => {
                         console.error(err)
@@ -69,10 +67,6 @@ class InputFile extends Component {
                 console.error(err)
                 return;
             })
-        console.log(deletingFile)
-        console.log(`${id}/${deletingFile}`)
-
-
     }
 
     render() {

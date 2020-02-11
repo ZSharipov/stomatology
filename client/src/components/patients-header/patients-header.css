@@ -13,6 +13,10 @@
     font-size: 26px;
 }
 
+.h-for-aphorism {
+    font-style: italic;
+}
+
 .patients-header button {
     margin-top: 30px;
     padding: 4px 32px 5px 32px;
