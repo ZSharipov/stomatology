@@ -33,7 +33,7 @@ const filterRowMessages = {
 };
 
 
-const Materials = ({materials, defaultHiddenColumnNames = ['code'], title }) => {
+const Materials = ({ materials, defaultHiddenColumnNames = ['code'] }) => {
 
     // const materials = [
     //     { id: 1, code: '', text: 'Эндодонтические' },
@@ -87,12 +87,13 @@ const Materials = ({materials, defaultHiddenColumnNames = ['code'], title }) => 
         return (
             <Table.Row
                 {...restProps}
-                onDoubleClick={() => {
+                className='trActive'
+                onClick={() => {
                     if (row['code'] === '')
                         return
                     const txt = document.getElementById('txtArea').value;
-                    document.getElementById('txtArea').value = 
-                    (txt + title+ row['code']+'>' + row['text'] + "\r\n")
+                    document.getElementById('txtArea').value =
+                        (txt + row['code'] + ': ' + row['text'] + "\r\n")
                 }}
                 style={cellStyle}//for RedBackgraund
             />

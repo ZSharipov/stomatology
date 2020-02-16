@@ -29,6 +29,17 @@ const db = mysql.createPool({
 // db.on('error', function() { mySql() });
 
 
+app.get('/aphorism', (req, res) => {
+    db.query('SELECT * FROM aphorism', (err, result) => {
+        if (err) {
+            console.error(err);
+            res.send("возникла ошибка выборки");
+            return
+        } else {
+            res.send(result);
+        }
+    });
+});
 app.get('/anaesthesia', (req, res) => {
     db.query('SELECT * FROM anaesthesia', (err, result) => {
         if (err) {

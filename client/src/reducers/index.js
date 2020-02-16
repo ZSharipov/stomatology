@@ -7,7 +7,9 @@ import patients from './patients'
 import test from './test'
 import manipulation from './manipulation'
 import diagnoses from './diagnoses'
+import aphorism from './aphorism'
 import tables from './tables-for-manipulation'
+
 
 export default combineReducers({
     registry,
@@ -19,4 +21,5 @@ export default combineReducers({
     manipulation,
     diagnoses,
     tables,
+    aphorism,
 })

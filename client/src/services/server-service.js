@@ -1,6 +1,10 @@
+// const url = 'http://192.168.0.55:3210/'
 const url = 'http://localhost:3210/'
 
 //GET's
+
+const getAphorism = _ =>
+    fetch(`${url}aphorism`)
 
 const getAnaesthesia = _ =>
     fetch(`${url}anaesthesia`)
@@ -232,12 +236,12 @@ const delImgDb = (data) =>
     });
 
 const delImgFs = (id, myFile) =>
-    fetch(`http://localhost:3211/file/del/${id}/${myFile}`, {
+    fetch(`http://192.168.0.55:3211/file/del/${id}/${myFile}`, {
         method: 'POST',
 
     });
 const addImg = ({ body, id, myFile }) =>
-    fetch(`http://localhost:3211/file/${id}/${myFile}`, {
+    fetch(`http://192.168.0.55:3211/file/${id}/${myFile}`, {
         method: 'POST',
         body: body
 
@@ -246,6 +250,7 @@ const addImg = ({ body, id, myFile }) =>
 
 export {
     getAnaesthesia,
+    getAphorism,
     getAnaesthetization,
     getMaterials,
     getDoctors,

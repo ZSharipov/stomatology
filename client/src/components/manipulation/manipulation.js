@@ -11,16 +11,17 @@ import RootTeeth from './root-teeth';
 import MilkTeeth from './milk-teeth';
 import { fetchImages } from '../../actions'
 import { putJournal } from '../../services/server-service'
+import { fetchJournal} from '../../actions'
 
 
 // import { HomePage, AuthenticationPage, RegistryPage, TestPage } from '../pages';
 import './manipulation.css';
 
 
-const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthesia, anaesthetization, materials }) => {
+const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthesia, anaesthetization, materials,fetchJournal }) => {
 
     const [id] = useState(obj.id);
-    // const [id_doctor, setId_doctor] = useState(obj.id_doctor);
+    const [id_doctor] = useState(obj.id_doctor);
     // const [doc_fio, setDoc_fio] = useState(obj.doc_fio);
     // const [id_patient, setId_patient] = useState(obj.id_patient);
     const [pat_fio] = useState(obj.pat_fio);
@@ -76,7 +77,10 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthe
         };
         putJournal(data)
             .then(res => res.json())
-            .then((res) => alert(res.status))
+            .then((res) =>{
+                fetchJournal(id_doctor);
+                alert(res.status);
+            } )
             .catch((err) => {
                 console.error(err);
                 alert(`ошибка при обновление`);
@@ -155,8 +159,8 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthe
                     <Diagnoses title={'Диагноз: '} />
                 </div>
                 <div className="div-block div-root-teeth">
-                    <label>Коренные зубы</label>
-                    <RootTeeth title={'Коренной зуб: '} />
+                    <label>Постоянные зубы</label>
+                    <RootTeeth title={'Постоянный зуб: '} />
                 </div>
                 <div className="div-block div-milk-teeth">
                     <label>Молочные зубы</label>
@@ -164,10 +168,7 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthe
                 </div>
             </div>
             <div className='div-for-params'>
-                <div className="div-block div-table-diagnoses">
-                    <label>Пломбировочные материалы</label>
-                    <Materials title={'Пломбировочные материалы: '} materials={materials} />
-                </div>
+                
                 <div className="div-block div-milk-teeth-tbl">
                     <label>Обезболивание</label>
                     <TempTable dataRows={anaesthetization} title={'Обезболивание: '} />
@@ -175,6 +176,10 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthe
                 <div className="div-block div-milk-teeth-tbl">
                     <label>Анестетик</label>
                     <TempTable dataRows={anaesthesia} title={'Анестетик: '} />
+                </div>
+                <div className="div-block div-table-diagnoses">
+                    <label>Пломбировочные материалы</label>
+                    <Materials materials={materials} />
                 </div>
             </div>
             <div className="footer">
@@ -230,6 +235,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
     fetchImages: fetchImages,
+    fetchJournal: fetchJournal,
 }
 
 

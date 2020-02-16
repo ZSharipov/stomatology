@@ -13,7 +13,11 @@
 
 .div-for-rows .table th {
     padding: .3rem !important;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #7ed5d8;
+}
+
+.trActive:active {
+    background-color: #20f13826 !important;
 }
 
 .div-for-rows td {

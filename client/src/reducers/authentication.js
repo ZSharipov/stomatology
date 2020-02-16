@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const authentication = (state = initialState, action) => {
-
     switch (action.type) {
         case "AUTHENTICATION_REQUEST":
             const { data, text } = action;

@@ -6,7 +6,7 @@ import {isDeciduous} from '../../actions'
 
 const RootTeeth = ({ title, setIsDeciduous }) => {
 
-    const onDoubleClickBtn=(e) => {
+    const onClickBtn=(e) => {
         const txt = document.getElementById('txtArea').value;
         document.getElementById('txtArea').value =
             (txt + title + e.target.innerText + "\r\n");
@@ -20,7 +20,7 @@ const RootTeeth = ({ title, setIsDeciduous }) => {
                 <button
                     style={{ padding: '4px', width: '32px' }}
                     key={index}
-                    onDoubleClick={onDoubleClickBtn}
+                    onClick={onClickBtn}
                     className="my-btn">
                     {firstSybol}{index}
                 </button>);

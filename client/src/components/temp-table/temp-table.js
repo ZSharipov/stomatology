@@ -53,8 +53,10 @@ const TempTable = ({dataRows, title}) => {
     const TableRow = ({ row, ...restProps }) => (
         <Table.Row
             {...restProps}
+            className='trActive'
             // eslint-disable-next-line no-alert
-            onDoubleClick={() =>{
+            // onDoubleClick={() =>{
+            onClick={() =>{
                const txt= document.getElementById('txtArea').value;
                document.getElementById('txtArea').value=(txt+title+row['text']+"\r\n")
             } }

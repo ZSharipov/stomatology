@@ -172,7 +172,7 @@ body {
 
 .div-root-teeth button,
 .div-milk-teeth button {
-    background: #fff !important;
+    background: #fff;
     border: 1px solid #333 !important;
     border-right: 0px !important;
     border-bottom: 0px !important;
@@ -180,9 +180,19 @@ body {
     transition: .3s !important;
 }
 
+.my-btn:active {
+    background: #20f13826 !important;
+    color: #20f13826 !important;
+}
+
 .div-root-teeth button:last-child,
 .div-milk-teeth button:last-child {
     border-right: 1px solid #333 !important;
+}
+
+.div-root-teeth,
+.div-milk-teeth {
+    min-width: 260px;
 }
 
 .div-root-teeth>div>div:last-child button,
@@ -191,12 +201,16 @@ body {
 }
 
 .div-root-teeth button:hover,
-.div-root-teeth button:active,
+
+/* .div-root-teeth button:active, */
+
 .div-root-teeth button:focus,
 .div-milk-teeth button:hover,
-.div-milk-teeth button:active,
+
+/* .div-milk-teeth button:active, */
+
 .div-milk-teeth button:focus {
-    background: #eeeeee99 !important;
+    background: #eeeeee99;
     transition: .3s !important;
 }
 

@@ -137,7 +137,8 @@ const Diagnoses = ({title, fetchDiagnoses, diagnoses}) => {
     const TableRow = ({ row, ...restProps }) => (
         <Table.Row
             {...restProps}
-            onDoubleClick={() => {
+            className='trActive'
+            onClick={() => {
                 const txt = document.getElementById('txtArea').value;
                 document.getElementById('txtArea').value =
                     (txt + title + row['code'] + '>' + row['text'] + "\r\n")

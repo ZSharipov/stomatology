@@ -6,6 +6,7 @@ import { fetchPatients } from './patients';
 import { fetchDiagnoses } from './diagnoses';
 import { fetchTables } from './tables-for-manipulation';
 import { setTestData } from './test';
+import { fetchAphorism } from './aphorism';
 import { openPatient, fetchImages, setCurImage, isDeciduous } from './manipulation';
 
 export {
@@ -22,5 +23,6 @@ export {
     isDeciduous,
     fetchDiagnoses,
     fetchTables,
+    fetchAphorism,
 
 }

@@ -42,11 +42,13 @@ class Authentication extends React.Component {
 
         let inputText = '';
         const onInputChange = (event) => inputText = event.target.value;
-        const onCodeSubmit = () => authent(doctors, inputText.trim());
+        const onCodeSubmit = () => {            
+            authent(doctors, inputText.trim());
+
+        };
         const enterPress = (e) => {
             if (e.keyCode === 13) {
                 document.getElementById("forEnter").click();
-
             }
         }
         return (
@@ -67,7 +69,7 @@ class Authentication extends React.Component {
                                 placeholder="введите свой код . . ." aria-label="Recipient's username" aria-describedby="basic-addon2" />
                             <div className="input-group-append">
                                 <button
-                                    id="forEnter" onClick={onCodeSubmit} type="submit" className="btn btn-primary mybtn">вход</button>
+                                    id="forEnter" onClick={onCodeSubmit} className="btn btn-primary mybtn">вход</button>
                             </div>
                         </div>
 
@@ -84,7 +86,7 @@ const mapStateToProps = (state) => {
         doctors: state.doctors.doctors,
         error: state.doctors.error,
         isType: state.authentication.isType,
-        authent: authentication,
+        // authent: authentication,
     }
 };
 const mapDispatchToProps = {
