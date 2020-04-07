@@ -98,7 +98,7 @@ const Patients = ({
         { columnName: 'hbs', width: 100 },
         { columnName: 'hcv', width: 100 },
         { columnName: 'hiv', width: 100 },
-        { columnName: 'date_created', width: 100 },
+        { columnName: 'date_created', width: 200 },
         { columnName: 'date_edit', width: 100 }
     ]);
 
@@ -111,7 +111,7 @@ const Patients = ({
         { name: 'hbs', title: 'hbs' },
         { name: 'hcv', title: 'hcv' },
         { name: 'hiv', title: 'hiv' },
-        { name: 'date_created', title: 'date_created' },
+        { name: 'date_created', title: 'дата создание' },
         { name: 'date_edit', title: 'date_edit' }
     ]);
 
@@ -155,7 +155,7 @@ const Patients = ({
             postPatients({ fio: added[0].fio, birth_day: revertData(added[0].birth_day), address: added[0].address, tel: added[0].tel })
                 .then(res => res.json())
                 .then((res) => {
-                    // fetchPatients();
+                    fetchPatients();
                     alert(res.status)
                 })
                 .catch((err) => {

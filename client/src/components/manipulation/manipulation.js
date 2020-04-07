@@ -99,6 +99,7 @@ const Manipulation = ({ obj, history, fetchImages, slides, isDeciduous, anaesthe
     };
     const onCacelBtnClick = () => {
         history.goBack();
+        fetchJournal(id_doctor);
     }
 
 

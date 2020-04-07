@@ -7,10 +7,10 @@ const journalRequested = () => {
 
 };
 
-const journalLoaded = (newDoctors) => {
+const journalLoaded = (newJournal) => {
     return {
         type: "FETCH_JOURNAL_SUCCESS",
-        payload: newDoctors
+        payload: newJournal
     }
 };
 

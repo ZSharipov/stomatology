@@ -136,7 +136,7 @@ const Doctors = ({ defaultHiddenColumnNames = ['date_created', 'date_edit'], doc
             if (editRow) {
                 const data = {
                     // fio,station,tel,authentication,isType
-                    query: 'UPDATE `patients` SET `fio` = ?, `station`=?, `tel` = ?,`authentication` = ?,`isType` = ? WHERE `id` = ?',
+                    query: 'UPDATE `doctors` SET `fio` = ?, `station`=?, `tel` = ?,`authentication` = ?,`isType` = ? WHERE `id` = ?',
                     params: [editRow.fio, editRow.station, editRow.tel, editRow.authentication, editRow.isType, editRow.id]
                 };
                 putDoctors(data)

@@ -81,7 +81,7 @@ const Admin = ({ isType, unauthentication }) => {
             </div>
             <div id="div1" style={{ display: 'none' }} className='div-for-patients'>
                 <h2>Пациенты</h2>
-                <Patients defaultHiddenColumnNames={['date_created', 'date_edit']} />
+                <Patients defaultHiddenColumnNames={['date_edit']} />
             </div>
             <div id="div2" style={{ display: 'none' }} className='div-for-doctors'>
                 <h2>Работники</h2>
@@ -90,7 +90,7 @@ const Admin = ({ isType, unauthentication }) => {
             <div id="div3" style={{ display: 'none' }} className='div-for-journal'>
                 <h2>Журнал</h2>
                 <Journal
-                    defaultHiddenColumnNames={['date_created', 'date_edit', 'id_doctor', 'id_patient', 'date_done', 'is_deciduous']} />
+                    defaultHiddenColumnNames={['date_done','id_doctor', 'id_patient', 'is_deciduous']} />
             </div>
             <div id="div4" style={{ display: 'none' }} className='div-for-diagnoses'>
                 <h2>Диагнозы</h2>

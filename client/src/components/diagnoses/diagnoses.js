@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 import {
     FilteringState,
     IntegratedFiltering,
-   
+
 } from '@devexpress/dx-react-grid';
 import {
     Grid,
     Table,
     TableFilterRow,
     TableColumnResizing,
- 
+
 
 } from '@devexpress/dx-react-grid-bootstrap4';
 
@@ -34,7 +34,7 @@ const filterRowMessages = {
     filterPlaceholder: '...',
 };
 
-const Diagnoses = ({title, fetchDiagnoses, diagnoses}) => {
+const Diagnoses = ({ title, fetchDiagnoses, diagnoses }) => {
 
     //#region 
     // const diagnoses = [
@@ -131,18 +131,19 @@ const Diagnoses = ({title, fetchDiagnoses, diagnoses}) => {
         fetchDiagnoses()
     }, [fetchDiagnoses])
 
-  
 
 
-    const TableRow = ({ row, ...restProps }) => (
-        <Table.Row
-            {...restProps}
-            className='trActive'
-            onClick={() => {
+
+    const TableRow = ({ row, ...restProps }) => ( <
+        Table.Row {...restProps }
+        className = 'trActive'
+        onClick = {
+            () => {
                 const txt = document.getElementById('txtArea').value;
                 document.getElementById('txtArea').value =
                     (txt + title + row['code'] + '>' + row['text'] + "\r\n")
-            }}
+            }
+        }
 
         />
     );
@@ -152,26 +153,32 @@ const Diagnoses = ({title, fetchDiagnoses, diagnoses}) => {
     ]);
 
 
-    return (
-        <div className="div-for-rows" >
-            <Grid
-                rows={rows}
-                columns={columns}
-                getRowId={getRowId}
-            >
-               
-                <FilteringState defaultFilters={[]} />
-                <IntegratedFiltering />                 
-                <Table
-                    columnExtensions={tableColumnExtensions}
-                    rowComponent={TableRow}
-                    messages={tableMessages} />
-                <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-                <TableFilterRow messages={filterRowMessages} />
-               
-                
-            </Grid>
-        </div>
+    return ( <
+        div className = "div-for-rows" >
+        <
+        Grid rows = { rows }
+        columns = { columns }
+        getRowId = { getRowId } >
+
+        <
+        FilteringState defaultFilters = {
+            [] }
+        /> <
+        IntegratedFiltering / >
+        <
+        Table columnExtensions = { tableColumnExtensions }
+        rowComponent = { TableRow }
+        messages = { tableMessages }
+        /> <
+        TableColumnResizing defaultColumnWidths = { defaultColumnWidths }
+        /> <
+        TableFilterRow messages = { filterRowMessages }
+        />
+
+
+        <
+        /Grid> <
+        /div>
     );
 };
 

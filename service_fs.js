@@ -12,10 +12,12 @@ app.use(cors());
 const getStorage = (dirName, myFileName) => {
     var storage = multer.diskStorage({
         destination: function(req, file, callback) {
+            // mkdirp(`./client/public/images/${dirName}`, function(err) {
             mkdirp(`./client/build/images/${dirName}`, function(err) {
                 if (err) {
                     console.log(err.stack)
                 } else {
+                    // callback(null, `./client/public/images/${dirName}`);
                     callback(null, `./client/build/images/${dirName}`);
                 }
             })
@@ -50,6 +52,7 @@ app.post('/file/:id/:myFile', function(req, res) {
 });
 
 app.post('/file/del/:id/:myFile', function(req, res) {
+    // const filePath = `./client/public/images/${req.params.id}/${req.params.myFile}`;
     const filePath = `./client/build/images/${req.params.id}/${req.params.myFile}`;
     fs.unlink(filePath, function(err) {
         if (err && err.code == 'ENOENT') {
@@ -59,6 +62,8 @@ app.post('/file/del/:id/:myFile', function(req, res) {
             // other errors, e.g. maybe we don't have enough permission
             res.send("Error occurred while trying to remove file");
         } else {
+            // if (fs.readdirSync(`./client/public/images/${req.params.id}`).length === 0) {
+            //     fs.rmdirSync(`./client/public/images/${req.params.id}`)
             if (fs.readdirSync(`./client/build/images/${req.params.id}`).length === 0) {
                 fs.rmdirSync(`./client/build/images/${req.params.id}`)
             }

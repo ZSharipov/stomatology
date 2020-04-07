@@ -79,12 +79,12 @@ const Journal = ({
         { columnName: 'tel', width: 100 },
         { columnName: 'state', width: 100 },
         { columnName: 'is_deciduous', width: 100 },
-        { columnName: 'note', width: 100 },
+        { columnName: 'note', width: 300 },
         { columnName: 'hbs', width: 80 },
         { columnName: 'hcv', width: 80 },
         { columnName: 'hiv', width: 80 },
-        { columnName: 'date_created', width: 0 },
-        { columnName: 'date_edit', width: 0 },
+        { columnName: 'pdate_created', width: 200 },
+        { columnName: 'jdate_created', width: 200},
         { columnName: 'date_done', width: 0 }
 
     ]);
@@ -103,8 +103,8 @@ const Journal = ({
         { name: 'hbs', title: 'hbs' },
         { name: 'hcv', title: 'hcv' },
         { name: 'hiv', title: 'hiv' },
-        { name: 'date_created', title: 'дата создание' },
-        { name: 'date_edit', title: 'дата изменение' },
+        { name: 'pdate_created', title: 'дата регистрации' },
+        { name: 'jdate_created', title: 'дата создание' },
         { name: 'date_done', title: 'дата выполнение' }
     ]);
 
@@ -232,6 +232,11 @@ const Journal = ({
                 // eslint-disable-next-line no-alert
 
                 style={cellStyle}
+
+                onDoubleClick={() => {
+                    openPatient(row);
+                    history.push('/manipulation');
+                }}
             />
         );
     };

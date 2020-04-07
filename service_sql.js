@@ -24,10 +24,6 @@ const db = mysql.createPool({
     database: 'stomatology'
 });
 
-// db.connect();
-
-// db.on('error', function() { mySql() });
-
 
 app.get('/aphorism', (req, res) => {
     db.query('SELECT * FROM aphorism', (err, result) => {
@@ -96,7 +92,7 @@ app.get('/doctors', (req, res) => {
     });
 });
 app.get('/patients', (req, res) => {
-    db.query('SELECT `patients`.`id`,`fio`,DATE_FORMAT(`birth_day`, "%d-%m-%Y") AS `birth_day`,`address`,`tel`,`hbs`,`hcv`,`hiv`,`date_created`,`date_edit` FROM patients', (err, result) => {
+    db.query('SELECT `patients`.`id`,`fio`,DATE_FORMAT(`birth_day`, "%d-%m-%Y") AS `birth_day`,`address`,`tel`,`hbs`,`hcv`,`hiv`,DATE_FORMAT(`date_created`, "%d-%m-%Y") AS `date_created`,`date_edit` FROM patients', (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");
@@ -119,10 +115,13 @@ app.get('/image/:id', function(req, res) {
 
 app.get('/journal/:id', function(req, res) {
     db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,IFNULL(j.note,'') AS note,   j.date_created, j.date_edit, j.date_done, 
+    DATE_FORMAT(p.date_created, "%d-%m-%Y") AS pdate_created, 
+    DATE_FORMAT(j.date_created, "%d-%m-%Y") AS jdate_created, 
+    DATE_FORMAT(j.date_done, "%d-%m-%Y") AS date_done, 
     p.hbs, p.hcv, p.hiv,if(j.is_deciduous = 0,'Коренной','Молочный') as is_deciduous, j.state as state
     FROM journal j 
     LEFT JOIN doctors d on j.id_doctor=d.id
-    LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=? order by state, date_created`, [req.params.id], (err, result) => {
+    LEFT JOIN patients  p on j.id_patient = p.id WHERE j.id_doctor=? order by state, jdate_created`, [req.params.id], (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");
@@ -131,8 +130,12 @@ app.get('/journal/:id', function(req, res) {
         res.send(result);
     });
 });
+
 app.get('/journal', function(req, res) {
-    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, j.date_created, j.date_edit, j.date_done, 
+    db.query(`SELECT j.id, j.id_doctor, d.fio doc_fio, j.id_patient, p.fio pat_fio,DATE_FORMAT(p.birth_day, "%d-%m-%Y") AS birth_day ,p.address,p.tel,  j.note, 
+    DATE_FORMAT(p.date_created, "%d-%m-%Y") AS pdate_created, 
+    DATE_FORMAT(j.date_created, "%d-%m-%Y") AS jdate_created,    
+    DATE_FORMAT(j.date_done, "%d-%m-%Y") AS date_done, 
         if(p.hbs = 0,'-','+') as hbs,
         if( p.hcv = 0,'-','+') as hcv,
         if(p.hiv = 0,'-','+') as hiv,
@@ -149,7 +152,7 @@ app.get('/journal', function(req, res) {
         END AS state
     FROM journal j 
     LEFT JOIN doctors d on j.id_doctor=d.id
-    LEFT JOIN patients  p on j.id_patient = p.id order by d.fio,state, date_created`, (err, result) => {
+    LEFT JOIN patients  p on j.id_patient = p.id order by d.fio,state, jdate_created`, (err, result) => {
         if (err) {
             console.error(err);
             res.send("возникла ошибка выборки");

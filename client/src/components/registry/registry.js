@@ -16,7 +16,7 @@ class Registry extends React.Component {
         const { doctors, isType,fio,unauthentication } = this.props;
         if (isType !== 'r')
         return <Redirect to='/authentication' />
-        const defaultHiddenColumnNames = ["hbs", "hcv", "hiv", "date_created", "date_edit"]
+        const defaultHiddenColumnNames = ["hbs", "hcv", "hiv", "date_edit"]
         
         const onLogOutBtn = () => {
                 unauthentication([],'')
