@@ -9,6 +9,7 @@ import manipulation from './manipulation'
 import diagnoses from './diagnoses'
 import aphorism from './aphorism'
 import tables from './tables-for-manipulation'
+import admin from './admin'
 
 
 export default combineReducers({
@@ -22,4 +23,5 @@ export default combineReducers({
     diagnoses,
     tables,
     aphorism,
+    admin,
 })
