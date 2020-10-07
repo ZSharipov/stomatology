@@ -1,6 +1,5 @@
 import { patientReferr } from './registry'
 import { fetchDoctors } from './doctors';
-import { admin } from './admin';
 import { fetchJournal, fetchAllJournal } from './journal';
 import { authentication } from './authentication';
 import { fetchPatients } from './patients';
@@ -25,6 +24,5 @@ export {
     fetchDiagnoses,
     fetchTables,
     fetchAphorism,
-    admin,
 
 }
