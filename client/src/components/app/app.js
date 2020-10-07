@@ -14,7 +14,7 @@ const App = () => {
                     exact />
                 <Route path="/admin"
                     component={AdminPage}
-                    exact />
+                />
                 <Route path="/manipulation"
                     component={ManipulationPage}
                     exact />

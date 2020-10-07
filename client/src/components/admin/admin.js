@@ -1,19 +1,15 @@
-import React, { Fragment} from 'react';
-import { Redirect } from 'react-router-dom'
+import React from 'react';
+import {Switch, Route, Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 
+import { AnaesthesiaPage, DiagnosesPage, JournalPage, DoctrosPage, PatientsPage } from '../pages';
+
 import './admin.css';
-import Patients from '../patients';
-import Doctors from '../doctors';
-import Journal from '../journal';
-import Anaesthesia from '../anaesthesia';
-import Anaesthetization from '../anaesthetization';
-import DiagnosesAdmin from '../diagnoses/diagnosesAdmin';
-import { authentication, admin } from '../../actions'
+import { authentication } from '../../actions'
 
 
 
-const Admin = ({ isType, unauthentication, setActiveWindow, activWindow }) => {
+const Admin = ({ isType, unauthentication }) => {
     const onLogOutBtn = () => {
         unauthentication([], '')
     }
@@ -21,69 +17,29 @@ const Admin = ({ isType, unauthentication, setActiveWindow, activWindow }) => {
     if (isType !== 'a')
         return <Redirect to='/authentication' />
 
-    const toggleWindow = (activWindow) => {
-        setActiveWindow(activWindow);
-    }
+  
 
     return (
         <div >
             <div className="header d-flex">
                 <ul className="d-block w-100">
-                    <button onClick={() => toggleWindow('patients')} className='btn btn-primary mr-2'>Пациенты</button>
-                    <button onClick={() => toggleWindow('doctors')} className='btn btn-primary mr-2'>Работники</button>
-                    <button onClick={() => toggleWindow('journal')} className='btn btn-primary mr-2'>Журнал</button>
-                    <button onClick={() => toggleWindow('diagnoses')} className='btn btn-primary mr-2'>Диагнозы</button>
-                    <button onClick={() => toggleWindow('anaesthesia')} className='btn btn-primary'>Анестезия</button>
+                    <Link to='/admin/patients' className='btn mr-2'>Пациенты</Link>
+                    <Link to='/admin/doctors' className='btn mr-2'>Работники</Link>
+                    <Link to='/admin/journal' className='btn mr-2'>Журнал</Link>
+                    <Link to='/admin/diagnoses' className='btn mr-2'>Диагнозы</Link>
+                    <Link to='/admin/anaesthesia' className='btn'>Анестезия</Link>
 
                     <button onClick={onLogOutBtn} className='btn btn-primary exitbtn'>Выход</button>
                 </ul>
             </div>
-
-
-            {
-                (activWindow === 'patients')
-                    ? <Fragment >
-                        <h2>Пациенты</h2>
-                        <Patients defaultHiddenColumnNames={['date_edit']} />
-                    </Fragment>
-                    : null
-            }
-            {
-                (activWindow === 'doctors')
-                    ? <Fragment >
-                        <h2>Работники</h2>
-                        <Doctors />
-                    </Fragment>
-                    : null
-            }
-            {
-                (activWindow === 'journal')
-                    ? <Fragment >
-                        <h2>Журнал</h2>
-                        <Journal
-                            defaultHiddenColumnNames={['date_done', 'id_doctor', 'id_patient', 'is_deciduous']} />
-                    </Fragment>
-                    : null
-            }
-            {
-                (activWindow === 'diagnoses')
-                    ? <Fragment >
-                        <h2>Диагнозы</h2>
-                        <DiagnosesAdmin />
-                    </Fragment>
-                    : null
-            }
-            {
-                (activWindow === 'anaesthesia')
-                    ? <Fragment >
-                        <h2>Обезболивание</h2>
-                        <Anaesthetization />
-
-                        <h2>Анестетик</h2>
-                        <Anaesthesia />
-                    </Fragment>
-                    : null
-            }
+            <Switch>
+                <Route path="/admin/doctors" component={DoctrosPage} exact/>  
+                <Route path="/admin/patients" component={PatientsPage} exact/>
+                <Route path="/admin/journal" component={JournalPage} exact/>
+                <Route path="/admin/diagnoses" component={DiagnosesPage} exact/>
+                <Route path="/admin/anaesthesia" component={AnaesthesiaPage} exact/>
+            </Switch>
+           
         </div >
     )
 };
@@ -93,12 +49,10 @@ const Admin = ({ isType, unauthentication, setActiveWindow, activWindow }) => {
 const mapStateToProps = (state) => {
     return {
         isType: state.authentication.isType,
-        activWindow: state.admin.activWindow,
     }
 }
 const mapDispatchToProps = {
     unauthentication: authentication,
-    setActiveWindow: admin,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);
