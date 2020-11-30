@@ -41,13 +41,13 @@ const Authentication = ({
     return <ErrorIndicator />;
   }
 
-  const onInputChange = (event) => setInputText(event.target.value);
+  const onInputChange = (event) => setInputText(String(event.target.value).trim());
   const onCodeSubmit = () => {
-    authent(doctors, inputText.trim());
+    authent(doctors, inputText)
   };
   const enterPress = (e) => {
     if (e.keyCode === 13) {
-      document.getElementById("forEnter").click();
+      onCodeSubmit();
     }
   };
 
