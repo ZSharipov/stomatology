@@ -2,8 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {isDeciduous} from '../../actions'
 
-
-
 const RootTeeth = ({ title, setIsDeciduous }) => {
 
     const onClickBtn=(e) => {
@@ -42,13 +40,11 @@ const RootTeeth = ({ title, setIsDeciduous }) => {
             <div>
                 {createDiv(4)}
             </div>
-
-
         </div>
     )
-
 }
 const mapDispatchToProps = {
     setIsDeciduous: isDeciduous,
 }
+
 export default connect(null,mapDispatchToProps)(RootTeeth);

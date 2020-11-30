@@ -26,7 +26,6 @@ const diagnoses = (state = initialState, action) => {
                 error: action.payload,
                 loading: false
             }
-
         default:
             return state
     }

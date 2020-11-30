@@ -1,35 +1,30 @@
 .header {
-    margin-top: .5rem;
-    padding-left: 10px;
+  margin-top: 0.5rem;
+  padding-left: 10px;
 }
-
 .header ul button {
-    list-style: none;
-    margin: 0;
-    padding: .5rem 1rem;
-    border-radius: 3px;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
 }
-
 .header ul button:hover {
-    background-color: rgb(216, 191, 191);
+  background-color: rgb(216, 191, 191);
 }
-
 .header button {
-    background: #fff;
-    color: #333;
-    border: 2px solid #333;
-    transition: .3s;
+  background: #fff;
+  color: #333;
+  border: 2px solid #333;
+  transition: 0.3s;
 }
-
 .header button:hover {
-    transition: .3s;
-    background: #eeeeee99 !important;
-    border: 2px solid #333;
-    color: #333;
+  transition: 0.3s;
+  background: #eeeeee99 !important;
+  border: 2px solid #333;
+  color: #333;
 }
-
 .header button.exitbtn {
-    text-align: right;
-    float: right;
-    margin-right: 20px;
+  text-align: right;
+  float: right;
+  margin-right: 20px;
 }

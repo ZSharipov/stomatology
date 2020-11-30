@@ -20,16 +20,6 @@ const patientsError = (error) => {
     }
 };
 
-
-// const fetchPatients =(serverService, dispatch)=> ()=>{
-//     dispatch(patientsRequested());
-//     serverService.getPatients()
-//         .then((data) => dispatch(patientsLoaded(data)))
-//         .catch((err)=>dispatch(patientsError(err)));
-// }
-
-
-
 const fetchPatients = () => (dispatch) => { //with thunk
     dispatch(patientsRequested());
     getPatients()

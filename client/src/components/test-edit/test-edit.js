@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { putPatients } from '../../services/server-service'
 import { fetchPatients, setTestData } from '../../actions'
-
-
-
 import './test-edit.css'
 
 const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
-
-
 
     const [hbsT, setHbs] = useState(hbs);
     const [hcvT, setHcv] = useState(hcv);
@@ -20,7 +15,6 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
     useEffect(() => { setHcv(hcv) }, [id, hcv]);
     useEffect(() => { setHiv(hiv) }, [id, hiv]);
     useEffect(() => { setId(id) }, [id]);
-
 
     const onHbsChange = (event) => {
 
@@ -44,7 +38,6 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
             .then(res => res.json())
             .then((res) => {
                 fetchPatients();
-                // setId(u);
                 document.getElementById("rootDiv").style.visibility = 'hidden'
                 setTestData(0, 0, 0, '', '')
                 alert(res.status)
@@ -55,11 +48,6 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
                 alert(`ошибка при обновление`);
                 return;
             })
-
-
-        // setTestData(0,0,0,'');
-
-
     }
 
     useEffect(() => {
@@ -74,7 +62,6 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
             <div className="child" >
                 <li className="fio"> {fio} </li>
             </div>
-
             <div className="child" >
                 <div className="custom-control custom-checkbox mb-3" >
                     <input type="checkbox"
@@ -107,7 +94,6 @@ const TestEdit = ({ hbs, hcv, hiv, id, fio, fetchPatients, setTestData }) => {
                         htmlFor="input3" > hiv </label>
                 </div>
             </div>
-
             <div className="child" >
                 <button onClick={onButtonClick}
                     className="btn btn-primary" > сохранить </button>
@@ -126,7 +112,6 @@ const mapStateToProps = (state) => {
         fio: state.test.patientFio,
     }
 }
-
 const mapDispatchToProps = {
     fetchPatients: fetchPatients,
     setTestData: setTestData,

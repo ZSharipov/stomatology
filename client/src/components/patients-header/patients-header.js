@@ -1,11 +1,8 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import './patients-header.css'
 import { fetchAphorism } from '../../actions'
 import { connect } from 'react-redux'
-import { useEffect } from 'react';
-
-
+import './patients-header.css'
 
 const PatientHeader = ({ fetchAphorism, aphorism }) => {
     
@@ -24,17 +21,13 @@ const PatientHeader = ({ fetchAphorism, aphorism }) => {
             </Link>
         </header>
     )
-
 };
-
 
 const mapStateToProps = (state) => {
     return {
         aphorism: state.aphorism.aphorism,
     }
 }
-
-
 const mapDispatchToProps = {
     fetchAphorism: fetchAphorism,
 }

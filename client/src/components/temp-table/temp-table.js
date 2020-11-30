@@ -1,100 +1,64 @@
-import React, { useState } from 'react';
-import '@icon/open-iconic/open-iconic.css'
-import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-
+import React, { useState } from "react";
+import "@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css";
+import "@icon/open-iconic/open-iconic.css";
+import "./temp-table.css";
 import {
-    FilteringState,
-    IntegratedFiltering,
-    SortingState,
-} from '@devexpress/dx-react-grid';
+  FilteringState,
+  IntegratedFiltering,
+  SortingState,
+} from "@devexpress/dx-react-grid";
 import {
-    Grid,
-    Table,
-    TableFilterRow,
-    TableColumnResizing,
+  Grid,
+  Table,
+  TableFilterRow,
+  TableColumnResizing,
+} from "@devexpress/dx-react-grid-bootstrap4";
 
-} from '@devexpress/dx-react-grid-bootstrap4';
-
-
-//my imports
-import './temp-table.css'
-
-
-
-const getRowId = row => row.id;
-
+const getRowId = (row) => row.id;
 const tableMessages = {
-    noData: 'Нет данных',
+  noData: "Нет данных",
 };
-
 
 const filterRowMessages = {
-    filterPlaceholder: '...',
+  filterPlaceholder: "...",
 };
 
+const TempTable = ({ dataRows, title }) => {
+  const [defaultColumnWidths] = useState([{ columnName: "text", width: 240 }]);
+  const [columns] = useState([{ name: "text", title: "Наименование" }]);
+  const [rows] = useState(dataRows);
+  const [sorting, setSorting] = useState([]);
+  const TableRow = ({ row, ...restProps }) => (
+    <Table.Row
+      {...restProps}
+      className="trActive"
+      onClick={() => {
+        const txt = document.getElementById("txtArea").value;
+        document.getElementById("txtArea").value =
+          txt + title + row["text"] + "\r\n";
+      }}
+    />
+  );
+  const [tableColumnExtensions] = useState([
+    { columnName: "text", wordWrapEnabled: true },
+  ]);
 
-const TempTable = ({dataRows, title}) => {  
-    
-
-    const [defaultColumnWidths] = useState([        
-        { columnName: 'text', width: 240 }
-    ]);
-
-
-    const [columns] = useState([
-        { name: 'text', title: 'Наименование' },
-
-    ]);
-
-    const [rows] = useState(dataRows);
-    const [sorting, setSorting] = useState([]);
-
-
-    const TableRow = ({ row, ...restProps }) => (
-        <Table.Row
-            {...restProps}
-            className='trActive'
-            // eslint-disable-next-line no-alert
-            // onDoubleClick={() =>{
-            onClick={() =>{
-               const txt= document.getElementById('txtArea').value;
-               document.getElementById('txtArea').value=(txt+title+row['text']+"\r\n")
-            } }
+  return (
+    <div className="div-for-rows">
+      <Grid rows={rows} columns={columns} getRowId={getRowId}>
+        <SortingState sorting={sorting} onSortingChange={setSorting} />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
+        <Table
+          columnExtensions={tableColumnExtensions}
+          rowComponent={TableRow}
+          messages={tableMessages}
         />
-    );
-
-    const [tableColumnExtensions] = useState([
-        { columnName: 'text', wordWrapEnabled: true },
-    ]);
-
-
-    return (
-
-        <div className="div-for-rows" >
-            <Grid
-                rows={rows}
-                columns={columns}
-                getRowId={getRowId}
-            >
-                <SortingState
-                    sorting={sorting}
-                    onSortingChange={setSorting}
-                />
-                <FilteringState defaultFilters={[]} />
-               
-                <IntegratedFiltering />
-
-                <Table
-                    columnExtensions={tableColumnExtensions}
-                    rowComponent={TableRow}
-                    messages={tableMessages}
-                />
-                <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-                <TableFilterRow messages={filterRowMessages} />
-            </Grid>
-        </div>
-    );
+        <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+        <TableFilterRow messages={filterRowMessages} />
+      </Grid>
+    </div>
+  );
 };
-
 
 export default TempTable;

@@ -4,7 +4,6 @@ const authentication = (data, text) => {
         data: data,
         text: text
     }
-
 };
 
 export {

@@ -11,7 +11,6 @@ import JournalPage from './journal-page'
 import DiagnosesPage from './diagnoses-page'
 import AnaesthesiaPage from './anaesthesia-page'
 
-
 export {
     HomePage,
     AuthenticationPage,
